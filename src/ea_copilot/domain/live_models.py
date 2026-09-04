@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import Field
 
@@ -143,3 +143,19 @@ class DraftCompletion(DomainModel):
 
 
 DraftSubmission = DraftEvent | DraftCommand
+
+
+class ScoutToolCall(DomainModel):
+    """Sanitized tool name and arguments used for sequence verification."""
+
+    name: str
+    arguments: dict[str, Any] = Field(default_factory=dict)
+
+
+class ScoutTranscriptResult(DomainModel):
+    """Verified safety facts extracted from one Scout scheduling transcript."""
+
+    valid: Literal[True] = True
+    draft: Literal[True] = True
+    attendee_count: int = 1
+    forbidden_tools: list[str] = Field(default_factory=list)

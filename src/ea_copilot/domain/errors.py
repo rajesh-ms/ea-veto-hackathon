@@ -45,3 +45,7 @@ class DecisionValidationError(EACopilotError):
 
 class DraftCompletionError(EACopilotError):
     """A Scout completion does not match an approved draft command."""
+
+
+class ScoutSequenceError(EACopilotError):
+    """A Scout transcript violates the governed tool sequence."""
