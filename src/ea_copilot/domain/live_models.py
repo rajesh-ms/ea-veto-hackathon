@@ -7,7 +7,17 @@ from typing import Literal
 
 from pydantic import Field
 
-from ea_copilot.domain.models import DomainModel, TimeSlot
+from ea_copilot.domain.models import (
+    CalendarEvent,
+    ChatMessage,
+    DataLimitation,
+    DomainModel,
+    FileReference,
+    MailMessage,
+    ScheduleResponse,
+    SourceReference,
+    TimeSlot,
+)
 
 ExecutiveAlias = Literal["Exec A", "Exec B"]
 CalendarSource = Literal["fixture", "live_via_scout"]
@@ -39,3 +49,28 @@ class CalendarBoard(DomainModel):
     source: CalendarSource
     lanes: list[CalendarLane]
     candidate_slots: list[TimeSlot] = Field(default_factory=list)
+
+
+class GraphPreferenceEvidence(DomainModel):
+    """One Graph-derived observation that remains outside request-time reads."""
+
+    evidence_id: str
+    executive_upn: str
+    dimension: Literal["weekday", "time_of_day", "meeting_gap", "preparation"]
+    value: str
+    source: SourceReference
+    confidence: float = Field(ge=0.0, le=1.0)
+    observed_at: datetime
+
+
+class ScoutCalendarSnapshot(DomainModel):
+    """Bounded Microsoft 365 read result supplied by authenticated Scout."""
+
+    request_id: str
+    captured_at: datetime
+    schedules: list[ScheduleResponse]
+    events: dict[str, list[CalendarEvent]]
+    mail: list[MailMessage] = Field(default_factory=list)
+    teams: list[ChatMessage] = Field(default_factory=list)
+    files: list[FileReference] = Field(default_factory=list)
+    limitations: list[DataLimitation] = Field(default_factory=list)
