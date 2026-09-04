@@ -435,3 +435,72 @@ Draft ──validate──► NeedsInfo ──answers──► Draft
 ```
 
 Implement in `domain/state_machine.py` as an explicit transition table. `tests/unit/test_state_machine.py` asserts that every transition not in the table raises `InvalidTransitionError` — a request cannot reach `DraftCreated` except through `Approved`.
+
+---
+
+## 12. Scout live-demo projections and draft bridge
+
+These contracts implement FR-901 through FR-909. They keep mailbox identity inside the live adapter and expose aliases at presentation boundaries.
+
+```python
+ExecutiveAlias = Literal["Exec A", "Exec B"]
+
+class CalendarBlock(BaseModel):
+    block_id: str
+    start: datetime
+    end: datetime
+    category: Literal["busy", "protected", "travel", "preparation", "candidate"]
+    label: str
+
+class CalendarLane(BaseModel):
+    alias: ExecutiveAlias
+    blocks: list[CalendarBlock]
+    access_limited: bool = False
+    limitation: str | None = None
+
+class CalendarBoard(BaseModel):
+    request_id: str
+    source: Literal["fixture", "live_via_scout"]
+    lanes: list[CalendarLane]
+    candidate_slots: list[TimeSlot]
+
+class GraphPreferenceEvidence(BaseModel):
+    evidence_id: str
+    executive_upn: str                       # internal; redacted before presentation
+    dimension: Literal["weekday", "time_of_day", "meeting_gap", "preparation"]
+    value: str
+    source: SourceReference
+    confidence: float
+    observed_at: datetime
+
+class DraftAuthorization(BaseModel):
+    request_id: str
+    recommendation_id: str
+    approval_id: str
+
+class DraftCommand(BaseModel):
+    command_id: str
+    transaction_id: str
+    request_id: str
+    recommendation_id: str
+    approval_id: str
+    subject: Literal["[DEMO] Executive scheduling prototype"]
+    body: str
+    slot: TimeSlot
+    attendee: str                            # signed-in user; never presented
+    location: str | None = None
+    draft: Literal[True] = True
+    created_at: datetime
+
+class DraftCompletion(BaseModel):
+    command_id: str
+    transaction_id: str
+    graph_event_id: str
+    web_link: str
+    draft: Literal[True]
+    completed_at: datetime
+```
+
+The live request remains approved-but-pending after `DraftCommand`. Only a matching `DraftCompletion` produces `DraftEvent` and transitions the request to `DraftCreated`. Duplicate completion returns the original event and never repeats the Graph operation.
+
+The three memory projection roots are exactly `01 Current Session`, `02 Evidence History`, and `03 Governed Memory`. The first may be replaced as a request advances; the other two are append-only/versioned. No vault note is read by request processing.

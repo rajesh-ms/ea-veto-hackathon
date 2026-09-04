@@ -243,6 +243,9 @@ def test_E2E_S1_05_no_draft_before_approval_INV_1_FR_606(app, m365): ...
 ### E2E-INV-01 · No write without approval
 **Covers** INV-1 — S1-05 generalised: for every scenario fixture, driving to `AwaitingEAReview` and calling `create_draft()` without approval raises and leaves `write_log` empty.
 
+### E2E-GOV-09 · Non-approval decisions do not authorize a draft
+**Covers** INV-1, FR-602, FR-606 — record each of `reject`, `return_for_info`, and `regenerate`, then call `create_draft()` for that recommendation. Every call raises `ApprovalRequiredError` and leaves `write_log` empty. `AuditStore.find_approval()` returns only `approve` and `edit` decisions.
+
 ### E2E-INV-02 · Write surface is exactly one method
 **Covers** INV-2
 
@@ -332,7 +335,40 @@ TRC-01 is the coverage backstop: adding a requirement without a test fails the b
 
 ---
 
-## 9. Running
+## 9. Scout live extension
+
+`tests/e2e/test_live_extension_contract.py` runs a fully offline Scout transcript through the same integration façade used by the live demo. The live tenant path is validated separately by `tools/run_live_scout_e2e.py` and never causes a default-suite skip.
+
+### E2E-LIVE-01 · Teams intake is correlated
+**Covers** FR-901 — a synthetic personal Teams message for `Exec A` and `Exec B` produces exactly one local request ID and preserves the message/request correlation.
+
+### E2E-LIVE-02 · Presentation identities are aliases
+**Covers** FR-902 — recursively inspect API output, vault notes, evidence, logs, and demo manifest; both aliases appear and neither configured mailbox identifier appears.
+
+### E2E-LIVE-03 · Calendar board is honest and private
+**Covers** FR-903 — two lanes appear in `Exec A`, `Exec B` order; blocks use generic categories and no private event subject. Denied access produces a lane-level limitation rather than fixture data.
+
+### E2E-LIVE-04 · Memory has exactly three governed layers
+**Covers** FR-904 — the vault contains Current Session, Evidence History, and Governed Memory. Evidence is not read during ranking; only approved profile versions appear in Governed Memory.
+
+### E2E-LIVE-05 · Graph evidence is inert before approval
+**Covers** FR-905 — three matching Graph observations generate a candidate, the byte-identical request retains its prior ranking, approval creates profile `v2`, and the next run changes with the approved preference named.
+
+### E2E-LIVE-06 · Live draft is two-phase and draft-only
+**Covers** FR-906 — no command exists before approval; after approval the command fixes `[DEMO]`, one self attendee, and `draft=true`; only a matching completion creates an unsent `DraftEvent`.
+
+### E2E-LIVE-07 · Scout owns authentication
+**Covers** FR-907 — a real stdio MCP handshake exposes only the EA tool allow-list; the registration contains no credential material and requires no Entra client ID.
+
+### E2E-LIVE-08 · Offline and live modes cannot be confused
+**Covers** FR-908 — default runtime remains fake-only. A failed Scout/Teams/alias/calendar preflight returns non-zero and never labels fixture data as live.
+
+### E2E-LIVE-09 · Complete desktop demo is verifiable
+**Covers** FR-909 — the media manifest and playable WebM contain the three scenario markers plus Teams intake, two calendars, three memory layers, approval, unsent draft, and before/after learning scenes; privacy verification finds no identity leak.
+
+---
+
+## 10. Running
 
 ```bash
 pytest                                   # everything

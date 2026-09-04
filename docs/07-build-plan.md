@@ -289,6 +289,37 @@ pytest -m requires_tenant -v             # only with a signed-in tenant
 
 ---
 
+## M10 — Scout live intake, visible memory, and complete recording
+
+**Create or extend**
+
+```
+src/ea_copilot/domain/live_models.py
+src/ea_copilot/services/{aliases,live_evidence,presentation,draft_commands}.py
+src/ea_copilot/adapters/{scout_m365,obsidian_vault}.py
+src/ea_copilot/integrations/scout_server.py
+src/ea_copilot/api/routes_live.py
+integrations/scout/ea-copilot/SKILL.md
+tools/{install_scout_integration,install_obsidian}.ps1
+tools/{run_live_scout_e2e,verify_live_evidence,verify_demo_privacy}.py
+```
+
+The live path accepts personal Teams intake through Scout, displays only `Exec A` and `Exec B`, ingests delegated Graph snapshots, and projects Current Session, Evidence History, and Governed Memory to Obsidian. Graph preference observations remain candidate evidence until the EA approves a new profile version.
+
+Agent 8 remains the only path to the M365 write. Its Scout adapter emits a one-time command only after approval; Scout must call `workiq_create_event` with `[DEMO]`, the signed-in user as the sole explicit attendee, and literal `draft:true`. A matching completion is required before `DraftCreated`.
+
+**Closes** FR-901, FR-902, FR-903, FR-904, FR-905, FR-906, FR-907, FR-908, FR-909
+
+**Gate**
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/acceptance_live_extension.ps1
+```
+
+The gate must have been observed red before implementation and must finish green with an intact Phoenix trace. Default `pytest` remains fake-only with zero E2E skips. Live execution pauses for human confirmation before the real draft and produces a sanitized evidence file plus a verified desktop WebM.
+
+---
+
 ## Deferred
 
 **NFR-10** — OpenTelemetry spans per agent, exported to Application Insights. Priority **C**, and deliberately outside the MVP: the audit store already answers "what did the system decide and why", which is the question this prototype exists to answer. Tracing becomes worthwhile when the system runs in Foundry, where the export target exists. Structured JSON logging (NFR-08, M8) covers the prototype's diagnostic need.
@@ -308,6 +339,7 @@ M0 skeleton
                             └─ M7 learning
                                 └─ M8 api + demo
                                     └─ M9 real adapters (optional)
+                                        └─ M10 Scout + Obsidian live demo
 ```
 
 M2, M3, and M4 are independent once M1 lands and can be built in any order. Everything from M5 on is strictly sequential.

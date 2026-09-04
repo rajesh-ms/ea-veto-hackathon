@@ -1,6 +1,6 @@
 # 08 — E2E test case catalogue
 
-Formal, step-by-step test cases for manual execution and for import into a test management tool. Sixty-two cases across three scenarios, six governance invariants, prompt-injection defence, audit, and non-functional checks.
+Formal, step-by-step test cases for manual execution and for import into a test management tool. Seventy-one cases across three scenarios, six governance invariants, prompt-injection defence, audit, non-functional checks, and the Scout live extension.
 
 **Companion documents.** [`06-e2e-test-cases.md`](06-e2e-test-cases.md) is the developer specification — fixture names, exact assertions, pytest node IDs. This catalogue is the execution artifact: numbered steps, expected results, and pass criteria a tester or reviewer can follow without reading code. `08-test-cases.csv` in this folder is the same content, importable.
 
@@ -569,6 +569,19 @@ These cases must never be weakened to make a build pass.
 
 ---
 
+### TC-GOV-009 · Non-approval decisions do not authorize a draft
+**P1 · Governance · Traces** INV-1, FR-602, FR-606
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Record `reject` for an awaiting recommendation | Decision is audited; request becomes `Rejected` |
+| 2 | Call the draft action for that recommendation | `ApprovalRequiredError`; write log remains empty |
+| 3 | Repeat with `return_for_info` | `ApprovalRequiredError`; write log remains empty |
+| 4 | Repeat with `regenerate` | `ApprovalRequiredError`; write log remains empty |
+| 5 | Inspect `find_approval()` | Only `approve` and `edit` decisions are returned as authorization |
+
+---
+
 ## 7. Prompt-injection defence
 
 Payloads are embedded in a calendar subject or mail body that the context agent retrieves.
@@ -718,7 +731,7 @@ TC-SEC-006 guards the opposite failure. A detector that flags ordinary business 
 
 | # | Action | Expected result |
 |---|---|---|
-| 1 | Extract all IDs from `01-requirements.md` | 87 IDs |
+| 1 | Extract all IDs from `01-requirements.md` | 96 IDs |
 | 2 | Search test names and docstrings for each | Every ID appears at least once |
 | 3 | Add an untested requirement and re-run | Build fails |
 
@@ -734,7 +747,102 @@ TC-SEC-006 guards the opposite failure. A detector that flags ordinary business 
 
 ---
 
-## 10. Demo run sheet
+## 10. Scout live extension
+
+### TC-LIVE-001 · Personal Teams intake is correlated
+**P1 · Functional · Traces** FR-901 · **Automation** `tests/e2e/test_live_extension_contract.py::test_FR_901_scout_intake_correlates_one_request`
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Send a personal Scout message requesting `Exec A` and `Exec B` | Scout accepts alias-only intake |
+| 2 | Inspect the local integration state | One Teams message ID maps to exactly one request ID |
+
+---
+
+### TC-LIVE-002 · Public identities are aliases only
+**P1 · Security · Traces** FR-902 · **Automation** `tests/e2e/test_live_extension_contract.py::test_FR_902_public_projection_contains_aliases_not_upns`
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Inspect browser, vault, evidence, logs, and manifest | `Exec A` and `Exec B` are present |
+| 2 | Search for configured mailbox identifiers | No match occurs |
+
+---
+
+### TC-LIVE-003 · Two live calendar lanes protect private detail
+**P1 · Functional · Traces** FR-903 · **Automation** `tests/e2e/test_live_extension_contract.py::test_FR_903_calendar_board_has_two_aliased_lanes`
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Open the live calendar board | Two ordered lanes appear for `Exec A` and `Exec B` |
+| 2 | Inspect each block | Only generic busy/protected/travel/preparation labels appear |
+| 3 | Deny one delegated read | The lane shows `DataLimitation`; no fixture is substituted |
+
+---
+
+### TC-LIVE-004 · Obsidian shows three memory layers
+**P1 · Data · Traces** FR-904 · **Automation** `tests/e2e/test_live_extension_contract.py::test_FR_904_vault_has_exactly_three_memory_layers`
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Open the demo vault | Current Session, Evidence History, and Governed Memory are visible |
+| 2 | Inspect ranking reads | Evidence notes are never read; approved profile memory is read |
+
+---
+
+### TC-LIVE-005 · Graph evidence activates only after approval
+**P1 · Governance · Traces** FR-905, INV-3 · **Automation** `tests/e2e/test_live_extension_contract.py::test_FR_905_graph_candidate_is_inert_until_approved`
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Ingest three consistent Graph observations | One candidate is proposed in Evidence History |
+| 2 | Rerun the same request before approval | Ranking is byte-identical |
+| 3 | Approve the candidate and rerun | Profile advances from `v1` to `v2` and ranking changes |
+
+---
+
+### TC-LIVE-006 · Scout draft is approval-bound and unsent
+**P1 · Governance · Traces** FR-906, INV-1, INV-2 · **Automation** `tests/e2e/test_live_extension_contract.py::test_FR_906_draft_sequence_is_approval_command_completion`
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Prepare a draft before approval | No command is created |
+| 2 | Record approval and prepare again | Command fixes `[DEMO]`, one self attendee, and `draft=true` |
+| 3 | Submit a matching Scout completion | An unsent `DraftEvent` is recorded and status becomes `DraftCreated` |
+
+---
+
+### TC-LIVE-007 · Scout authentication is reused without app registration
+**P1 · Security · Traces** FR-907 · **Automation** `tests/e2e/test_live_extension_contract.py::test_FR_907_scout_package_uses_stdio_without_credentials`
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Start the custom stdio MCP server from Scout | EA tools enumerate successfully |
+| 2 | Inspect registration and environment | No client ID, secret, token, or Entra app registration is present |
+
+---
+
+### TC-LIVE-008 · Live mode fails closed
+**P1 · Non-functional · Traces** FR-908, NFR-01 · **Automation** `tests/e2e/test_live_extension_contract.py::test_FR_908_default_runtime_has_no_live_dependency`
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Run default `pytest` without network | Fake-only suite passes with zero E2E skips |
+| 2 | Run live preflight with a prerequisite absent | Command fails and no surface is labelled live |
+
+---
+
+### TC-LIVE-009 · Complete desktop demo is playable and redacted
+**P1 · Non-functional · Traces** FR-909 · **Automation** `tests/e2e/test_live_extension_contract.py::test_FR_909_demo_manifest_requires_three_scenarios`
+
+| # | Action | Expected result |
+|---|---|---|
+| 1 | Record Teams, browser, and Obsidian walkthrough | All three scenario completion markers and required scenes are present |
+| 2 | Verify the WebM and manifest | Media has duration/dimensions and no identity or invitation-sent claim leaks |
+
+---
+
+## 11. Demo run sheet
 
 The nine beats of the leadership walkthrough, in order. Each maps to cases already specified above.
 
@@ -754,18 +862,19 @@ Beat 9 carries the argument. Beats 7 and 9 together show restraint working — t
 
 ---
 
-## 11. Coverage summary
+## 12. Coverage summary
 
 | Group | Cases | P1 |
 |---|---|---|
 | Scenario 1 — single executive | 12 | 8 |
 | Scenario 2 — multi executive | 10 | 7 |
 | Scenario 3 — governed learning | 12 | 9 |
-| Governance invariants | 8 | 7 |
+| Governance invariants | 9 | 8 |
 | Prompt-injection defence | 8 | 7 |
 | Audit and data | 5 | 3 |
 | Non-functional | 6 | 5 |
-| **Total** | **61** | **46** |
+| Scout live extension | 9 | 9 |
+| **Total** | **71** | **56** |
 
 Exit criteria for the demo: every **P1** case passes, and no P2 failure touches a governance invariant.
 

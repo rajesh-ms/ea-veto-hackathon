@@ -126,6 +126,20 @@ Permission boundary · executive marked busy · non-movable event (`is_movable =
 | FR-804 | M | Offer no update or delete operation on the audit store. |
 | FR-805 | S | Replay a recommendation from its audit record and reproduce the identical ranking. |
 
+### 2.9 Scout live demonstration and visible memory
+
+| ID | Pri | Requirement |
+|---|---|---|
+| FR-901 | M | Accept a personal Teams request through Microsoft Scout and correlate the Teams message ID to exactly one local request ID. |
+| FR-902 | M | Show only the presentation aliases `Exec A` and `Exec B`; redact configured mailbox identities from browser, vault, logs, evidence, screenshots, and video. |
+| FR-903 | M | Show two privacy-filtered live calendar lanes populated through Scout-authenticated delegated reads, or show an explicit `DataLimitation` when access is unavailable. |
+| FR-904 | M | Project Current Session, Evidence History, and Governed Memory as one-way Obsidian notes with distinct read/write rules. |
+| FR-905 | M | Store Graph-derived preference observations as evidence and keep their candidate rule inert until an EA-approved profile version activates it. |
+| FR-906 | M | Execute a live calendar draft only in the sequence approval → one-time command → `workiq_create_event(draft=true)` → matching completion. |
+| FR-907 | M | Integrate through Scout's authenticated custom stdio MCP path without creating an Entra app registration or copying authentication material. |
+| FR-908 | M | Keep the default suite fake-only and fail closed when live Scout, Teams, identity mapping, or calendar access preflight is unavailable. |
+| FR-909 | M | Record and verify a redacted desktop demonstration containing Teams intake, both calendar lanes, all three memory layers, the approval gate, the unsent `[DEMO]` draft, and governed reranking across all three scenarios. |
+
 ---
 
 ## 3. Non-functional requirements

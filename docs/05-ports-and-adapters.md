@@ -26,7 +26,8 @@ class M365Port(Protocol):
     # ---- the only write ----
     def create_draft_event(self, organiser: str, subject: str, body: str,
                            slot: TimeSlot, required: list[str], optional: list[str],
-                           location: str | None) -> DraftEvent: ...
+                           location: str | None,
+                           authorization: DraftAuthorization) -> DraftEvent | DraftCommand: ...
 ```
 
 `create_draft_event` is the entire write surface — `INV-2`. There is deliberately no accept, decline, cancel, move, update, or send. `tests/e2e/test_governance_invariants.py::test_INV_2_write_surface` reflects over the protocol and asserts the write method set is exactly `{"create_draft_event"}`, so adding one fails the build.
@@ -49,17 +50,19 @@ class FakeM365Adapter:
 
 `write_log` is how the E2E tests prove `INV-1`: drive the pipeline without approving, then assert the log is empty. `deny_access` drives the `DataLimitation` path in `FR-204` without needing a real restricted mailbox.
 
-### WorkIqMcpAdapter — prototype, real data
+### ScoutM365Adapter — prototype, real data
 
-**Module** `adapters/m365_workiq.py`
+**Module** `adapters/scout_m365.py`
 
-Spawns `workiq mcp` as a stdio child process and speaks JSON-RPC over its pipes. Notes that cost time to rediscover:
+Scout is the authenticated MCP client. It calls the repository's local stdio server, performs its own Work IQ/Graph reads, and submits a bounded `ScoutCalendarSnapshot` to this adapter. The Python process never receives Scout tokens.
 
-- Scout is **not** a server. It exposes no inbound port; it is an MCP client like this adapter. Spawn your own child process — do not try to connect to Scout.
-- On Windows, spawn through `cmd.exe /c` — a direct spawn of the `.cmd` shim fails with `EINVAL`.
-- Hold **one long-lived session** for the process lifetime. Spawning per call works but leaves dozens of orphans.
-- Map `search_paths` → `/me/calendar/getSchedule`, `/me/findMeetingTimes`, `/me/events`, `/me/calendarView`, `mailboxSettings`.
-- Access is delegated: every path acts as the signed-in user.
+- Reads are snapshot-backed and deterministic once ingested. Missing or denied data becomes `DataLimitation`; it is never silently replaced by fixtures in live mode.
+- Private event subjects and bodies may exist inside the adapter but are converted to generic block categories before presentation.
+- `create_draft_event` is two-phase. After Agent 8 supplies `DraftAuthorization`, the adapter appends a one-time `DraftCommand`. Scout consumes it, invokes `workiq_create_event` with literal `draft:true`, and submits a matching `DraftCompletion`.
+- The request does not reach `DraftCreated` until completion is validated. Transaction IDs make duplicate consumption/completion idempotent.
+- The only explicit attendee is the signed-in user and the live subject is fixed to `[DEMO] Executive scheduling prototype`.
+
+The Scout package lives under `integrations/scout/`. Its skill forbids accept, decline, cancel, move, update, send, and delete, and the MCP server exposes no such tools. This reuses Scout's existing delegated identity and requires no Entra app registration — FR-906 and FR-907.
 
 ### GraphAdapter — production target
 
@@ -128,7 +131,7 @@ Two adapters: `FixedClock(instant)` for tests and `SystemClock()` for runtime.
 
 Scheduling assertions are only stable if "now" is fixed. `tests/unit/test_no_wall_clock.py` greps `src/` for `datetime.now(`, `date.today(`, and `time.time(` and fails on a hit — `NFR-03`.
 
-All fixtures are anchored to **2026-09-14T09:00:00Z**, a Monday.
+All fixtures are anchored to **2026-09-14T13:00:00Z**, Monday 08:00 in America/Chicago.
 
 ---
 
@@ -187,7 +190,7 @@ adapters:
   m365: fake        # fake | workiq | graph
   llm: fake         # fake | azure
   clock: fixed      # fixed | system
-fixed_clock_instant: "2026-09-14T09:00:00Z"
+fixed_clock_instant: "2026-09-14T13:00:00Z"
 calendar_writes_enabled: true
 pattern_threshold: 3
 pattern_window_days: 30
