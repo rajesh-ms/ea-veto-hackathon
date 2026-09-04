@@ -11,7 +11,7 @@ from ea_copilot.bootstrap import ApplicationRuntime, build_runtime
 from ea_copilot.config import project_root
 from ea_copilot.domain.enums import EADecision
 from ea_copilot.domain.errors import ApprovalRequiredError
-from ea_copilot.domain.models import FeedbackEvent, Requester
+from ea_copilot.domain.models import DraftEvent, FeedbackEvent, Requester
 
 REQUESTER = Requester(
     entra_object_id="requester@humana-demo.com",
@@ -55,6 +55,7 @@ def scenario_one() -> None:
         chosen_option_id=packet.options[0].option_id,
     )
     draft = app.create_draft(packet.recommendation_id, EA)
+    assert isinstance(draft, DraftEvent)
     assert draft.approval_id == approval.approval_id and draft.is_sent is False
     print(f"S1 COMPLETE · {draft.draft_id} created unsent")
 
@@ -80,6 +81,7 @@ def scenario_two() -> None:
         chosen_option_id=chosen.option_id,
     )
     draft = app.create_draft(packet.recommendation_id, EA)
+    assert isinstance(draft, DraftEvent)
     assert isinstance(runtime.m365, FakeM365Adapter)
     assert affected is None or affected not in str(runtime.m365.write_log)
     print(

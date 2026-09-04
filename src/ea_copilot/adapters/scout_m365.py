@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import timedelta
 
 from ea_copilot.domain.errors import CalendarWritesDisabledError, FixtureMissingError
-from ea_copilot.domain.live_models import ScoutCalendarSnapshot
+from ea_copilot.domain.live_models import DraftAuthorization, DraftCommand, ScoutCalendarSnapshot
 from ea_copilot.domain.models import (
     CalendarEvent,
     ChatMessage,
@@ -17,17 +17,27 @@ from ea_copilot.domain.models import (
     WorkingHours,
 )
 from ea_copilot.ports.clock import ClockPort
+from ea_copilot.services.draft_commands import DraftCommandStore
 from ea_copilot.services.ids import stable_id
 
 
 class ScoutM365Adapter:
     """Implement M365 reads from one authenticated, bounded Scout snapshot."""
 
-    def __init__(self, clock: ClockPort) -> None:
+    def __init__(
+        self,
+        clock: ClockPort,
+        *,
+        draft_commands: DraftCommandStore | None = None,
+        self_identifier: str | None = None,
+    ) -> None:
         self._clock = clock
         self._snapshot: ScoutCalendarSnapshot | None = None
         self.read_log: list[tuple[str, dict[str, object]]] = []
         self.network_calls = 0
+        self.write_log: list[tuple[str, dict[str, object]]] = []
+        self._draft_commands = draft_commands
+        self._self_identifier = self_identifier
 
     def ingest(self, snapshot: ScoutCalendarSnapshot) -> ScoutCalendarSnapshot:
         self._snapshot = snapshot
@@ -145,6 +155,42 @@ class ScoutM365Adapter:
         required: list[str],
         optional: list[str],
         location: str | None,
-    ) -> DraftEvent:
-        del organiser, subject, body, slot, required, optional, location
-        raise CalendarWritesDisabledError("Scout draft bridge is not configured")
+        authorization: DraftAuthorization,
+    ) -> DraftEvent | DraftCommand:
+        del organiser, subject, required, optional
+        if self._draft_commands is None or self._self_identifier is None:
+            raise CalendarWritesDisabledError("Scout draft bridge is not configured")
+        transaction_id = stable_id(
+            "TX",
+            authorization.request_id,
+            authorization.recommendation_id,
+            authorization.approval_id,
+        )
+        command = DraftCommand(
+            command_id=stable_id("CMD", transaction_id),
+            transaction_id=transaction_id,
+            request_id=authorization.request_id,
+            recommendation_id=authorization.recommendation_id,
+            approval_id=authorization.approval_id,
+            subject="[DEMO] Executive scheduling prototype",
+            body=body,
+            slot=slot,
+            attendee=self._self_identifier,
+            location=location,
+            draft=True,
+            created_at=self._clock.now(),
+        )
+        stored = self._draft_commands.append(command)
+        if not self.write_log:
+            self.write_log.append(
+                (
+                    "create_draft_event",
+                    {
+                        "command_id": command.command_id,
+                        "transaction_id": command.transaction_id,
+                        "draft": True,
+                        "attendee_count": 1,
+                    },
+                )
+            )
+        return stored

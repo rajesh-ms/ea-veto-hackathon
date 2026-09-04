@@ -69,6 +69,24 @@ graph_evidence_table = Table(
     Column("data", Text, nullable=False),
 )
 
+draft_commands_table = Table(
+    "draft_commands",
+    metadata,
+    Column("sequence", Integer, primary_key=True, autoincrement=True),
+    Column("command_id", String, unique=True, nullable=False),
+    Column("transaction_id", String, unique=True, nullable=False),
+    Column("data", Text, nullable=False),
+)
+
+draft_completions_table = Table(
+    "draft_completions",
+    metadata,
+    Column("sequence", Integer, primary_key=True, autoincrement=True),
+    Column("command_id", String, unique=True, nullable=False),
+    Column("transaction_id", String, unique=True, nullable=False),
+    Column("data", Text, nullable=False),
+)
+
 
 @dataclass(frozen=True)
 class Database:

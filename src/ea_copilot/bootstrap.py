@@ -32,6 +32,7 @@ from ea_copilot.services.aliases import AliasDirectory
 from ea_copilot.services.audit import AuditStore
 from ea_copilot.services.candidates import CandidateStore
 from ea_copilot.services.database import Database
+from ea_copilot.services.draft_commands import DraftCommandStore
 from ea_copilot.services.evidence import EvidenceStore
 from ea_copilot.services.live_evidence import LiveEvidenceStore
 from ea_copilot.services.policy import PolicyService
@@ -55,6 +56,7 @@ class ApplicationRuntime:
     preference_review: PreferenceReviewAgent
     evaluation: EvaluationAgent
     live_evidence: LiveEvidenceStore
+    draft_commands: DraftCommandStore
     live_mode: bool = False
     aliases: AliasDirectory | None = None
     self_identifier: str | None = None
@@ -88,6 +90,7 @@ def build_runtime(
     )
     evidence = EvidenceStore(selected_database)
     live_evidence = LiveEvidenceStore(selected_database)
+    draft_commands = DraftCommandStore(selected_database)
     candidates = CandidateStore(selected_database)
     policy_service = PolicyService(root / "config" / "policy.yaml")
     scoring = ScoringService(root / "config" / "weights.yaml", clock=selected_clock)
@@ -104,7 +107,13 @@ def build_runtime(
     ranking = RankingAgent(scoring, profiles, selected_m365, audit, selected_clock)
     explanation = ExplanationAgent(selected_llm, selected_clock, audit, scoring)
     workbench = WorkbenchAgent(audit, selected_clock)
-    draft_action = DraftActionAgent(selected_m365, audit, selected_clock, selected)
+    draft_action = DraftActionAgent(
+        selected_m365,
+        audit,
+        selected_clock,
+        selected,
+        draft_commands,
+    )
     feedback = FeedbackAgent(evidence, selected_llm, selected_clock, audit)
     pattern = PatternAgent(
         evidence,
@@ -148,6 +157,7 @@ def build_runtime(
         preference_review=preference_review,
         evaluation=evaluation,
         live_evidence=live_evidence,
+        draft_commands=draft_commands,
     )
 
 
@@ -165,11 +175,17 @@ def build_live_runtime(
     """Build a Scout-backed runtime without copying Scout authentication state."""
 
     selected_clock = clock or SystemClock()
-    adapter = ScoutM365Adapter(selected_clock)
+    selected_database = database or Database.memory()
+    draft_commands = DraftCommandStore(selected_database)
+    adapter = ScoutM365Adapter(
+        selected_clock,
+        draft_commands=draft_commands,
+        self_identifier=self_identifier,
+    )
     runtime = build_runtime(
         root,
         settings=settings,
-        database=database,
+        database=selected_database,
         clock=selected_clock,
         m365=adapter,
         llm=llm,

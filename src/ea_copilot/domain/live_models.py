@@ -13,6 +13,7 @@ from ea_copilot.domain.models import (
     ChatMessage,
     DataLimitation,
     DomainModel,
+    DraftEvent,
     FileReference,
     MailMessage,
     ScheduleResponse,
@@ -103,3 +104,42 @@ class VaultProjectionResult(DomainModel):
     vault_path: Path
     layers: list[MemoryLayerName]
     written_files: list[str]
+
+
+class DraftAuthorization(DomainModel):
+    """Approval identifiers Agent 8 passes to the sole M365 write method."""
+
+    request_id: str
+    recommendation_id: str
+    approval_id: str
+
+
+class DraftCommand(DomainModel):
+    """Single-use request for Scout to create an unsent Graph draft."""
+
+    command_id: str
+    transaction_id: str
+    request_id: str
+    recommendation_id: str
+    approval_id: str
+    subject: Literal["[DEMO] Executive scheduling prototype"]
+    body: str
+    slot: TimeSlot
+    attendee: str
+    location: str | None = None
+    draft: Literal[True] = True
+    created_at: datetime
+
+
+class DraftCompletion(DomainModel):
+    """Scout's matching result for one draft command."""
+
+    command_id: str
+    transaction_id: str
+    graph_event_id: str
+    web_link: str
+    draft: Literal[True]
+    completed_at: datetime
+
+
+DraftSubmission = DraftEvent | DraftCommand

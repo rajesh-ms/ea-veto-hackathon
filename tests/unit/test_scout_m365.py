@@ -9,7 +9,7 @@ import pytest
 from ea_copilot.adapters.clock_fixed import FixedClock
 from ea_copilot.adapters.scout_m365 import ScoutM365Adapter
 from ea_copilot.domain.errors import CalendarWritesDisabledError, FixtureMissingError
-from ea_copilot.domain.live_models import ScoutCalendarSnapshot
+from ea_copilot.domain.live_models import DraftAuthorization, ScoutCalendarSnapshot
 from ea_copilot.domain.models import (
     CalendarEvent,
     ChatMessage,
@@ -140,4 +140,9 @@ def test_FR_906_scout_adapter_has_no_calendar_write_before_draft_bridge() -> Non
             required=["demo-user-id"],
             optional=[],
             location=None,
+            authorization=DraftAuthorization(
+                request_id="REQ-1",
+                recommendation_id="REC-1",
+                approval_id="APR-1",
+            ),
         )
