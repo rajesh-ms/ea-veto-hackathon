@@ -51,14 +51,18 @@ class ScoutToolService:
             request = self.runtime.orchestrator.request(request_id)
             return self._redact_mapping(request.model_dump(mode="json"))
         fields = dict(structured_fields)
-        requested = fields.get("requested_executives", [])
-        if not isinstance(requested, list) or not requested:
+        for field_name in ("requested_executives", "required_attendees", "optional_attendees"):
+            values = fields.get(field_name, [])
+            if not isinstance(values, list):
+                raise ValueError(f"{field_name} must be a list of aliases")
+            mapped = [
+                self.aliases.resolve(alias) for alias in values if alias in self.aliases.aliases
+            ]
+            if len(mapped) != len(values):
+                raise ValueError("Only Exec A and Exec B are valid executive aliases")
+            fields[field_name] = mapped
+        if not fields["requested_executives"]:
             raise ValueError("requested_executives must contain Exec A or Exec B")
-        fields["requested_executives"] = [
-            self.aliases.resolve(alias) for alias in requested if alias in self.aliases.aliases
-        ]
-        if len(fields["requested_executives"]) != len(requested):
-            raise ValueError("Only Exec A and Exec B are valid executive aliases")
         request = self.runtime.orchestrator.submit(
             raw_text,
             Requester(entra_object_id="scout-owner", display_name="EA"),

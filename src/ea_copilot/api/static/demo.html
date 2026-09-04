@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Offline governed Executive Time Management Copilot demo">
+    <title>Executive Time Copilot · Governed Demo</title>
+    <link rel="stylesheet" href="/static/demo.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">HUMANA · EXECUTIVE OPERATIONS</p>
+        <h1>Executive Time Copilot</h1>
+        <p class="subtitle">Recommendations move fast. Authority stays with the EA.</p>
+      </div>
+      <div class="environment" aria-label="Environment status" id="scout-status" data-testid="scout-status">
+        <span class="status-dot" aria-hidden="true"></span>
+        Scout-ready · deterministic fixture
+      </div>
+    </header>
+
+    <main class="shell">
+      <aside class="scenario-nav" aria-label="Demo scenarios">
+        <p class="nav-label">VALIDATION RUN</p>
+        <button class="scenario-button" id="run-s1" data-testid="run-s1">
+          <span class="scenario-number">01</span>
+          <span><strong>Run Scenario 1</strong><small>Qualify · recommend · approve</small></span>
+        </button>
+        <button class="scenario-button" id="run-s2" data-testid="run-s2">
+          <span class="scenario-number">02</span>
+          <span><strong>Run Scenario 2</strong><small>Exec A + Exec B · hard constraints</small></span>
+        </button>
+        <button class="scenario-button" id="run-s3" data-testid="run-s3">
+          <span class="scenario-number">03</span>
+          <span><strong>Run Scenario 3</strong><small>Evidence · candidate · governed learning</small></span>
+        </button>
+        <button class="reset-button" id="reset-demo">Reset demo</button>
+
+        <section class="visibility-stage" id="calendar-stage" data-testid="calendar-stage" aria-label="Executive calendars">
+          <p class="nav-label">EXECUTIVE CALENDARS</p>
+          <div class="mini-lane"><span>Exec A</span><i></i><i></i><i></i></div>
+          <div class="mini-lane"><span>Exec B</span><i></i><i></i><i></i></div>
+          <p class="stage-note">Free/busy only · private subjects hidden</p>
+        </section>
+
+        <section class="memory-stage" id="memory-stage" data-testid="memory-stage" aria-label="Agent memory layers">
+          <p class="nav-label">AGENT MEMORY</p>
+          <div class="memory-layer" data-testid="memory-current-session"><b>1</b><span>Current Session</span><em>active</em></div>
+          <div class="memory-layer" data-testid="memory-evidence-history"><b>2</b><span>Evidence History</span><em>inert</em></div>
+          <div class="memory-layer" data-testid="memory-governed"><b>3</b><span>Governed Memory</span><em>approved</em></div>
+          <span class="pending-indicator" data-testid="draft-pending-marker">Draft execution is approval-bound</span>
+        </section>
+      </aside>
+
+      <section class="workspace" aria-live="polite">
+        <div class="workspace-heading">
+          <div>
+            <p class="eyebrow" id="scenario-kicker">READY</p>
+            <h2 id="scenario-title">Choose a scenario to begin</h2>
+          </div>
+          <span class="gate-pill">EA approval gate enforced</span>
+        </div>
+        <div class="progress-track" id="progress-track" aria-label="Scenario progress"></div>
+        <div class="result-grid" id="results">
+          <article class="empty-state">
+            <span class="empty-mark">⌁</span>
+            <h3>A deterministic week is loaded</h3>
+            <p>Monday 14 September 2026 · Chicago · no network or tenant required.</p>
+          </article>
+        </div>
+        <div id="completion-marker" class="completion-marker" role="status"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>INV-1</span> No calendar write without recorded EA approval
+      <span>INV-2</span> Draft only · never send or move
+      <span>INV-3</span> Learning activates only after approval
+    </footer>
+    <script src="/static/demo.js" defer></script>
+  </body>
+</html>
