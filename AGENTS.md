@@ -30,6 +30,7 @@ pytest                       # full suite, fakes only
 pytest tests/e2e -v          # the three MVP scenarios + invariants
 ruff check src tests         # lint
 mypy src                     # types
+python tools/check_docs.py   # spec consistency: links, IDs, coverage
 uvicorn ea_copilot.api.app:app --reload    # API on :8000
 python -m ea_copilot.cli.demo              # scripted end-to-end demo
 ```
@@ -44,6 +45,8 @@ A milestone is complete when all four hold:
 4. `docs/07-build-plan.md` acceptance gate for that milestone passes verbatim.
 
 Run the checks and read the output before reporting a milestone done.
+
+Changing a test case changes the contract, so update `docs/08-e2e-test-catalogue.md` alongside it and re-run `python tools/gen_test_csv.py` and `python tools/check_docs.py`.
 
 ## Working rules
 

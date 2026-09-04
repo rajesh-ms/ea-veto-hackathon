@@ -11,8 +11,9 @@ Specification set for the Executive Time Management Copilot. Written for a codin
 | 3 | [`03-data-contracts.md`](03-data-contracts.md) | Exact Pydantic models and the request state machine. Copy these signatures. |
 | 4 | [`04-component-specs.md`](04-component-specs.md) | Per-agent contract: inputs, outputs, permitted effects. One section per agent 1–12. |
 | 5 | [`05-ports-and-adapters.md`](05-ports-and-adapters.md) | The three ports, their fakes, and how untrusted content is handled. |
-| 6 | [`06-e2e-test-cases.md`](06-e2e-test-cases.md) | The acceptance suite. Given/When/Then with exact assertions. |
+| 6 | [`06-e2e-test-cases.md`](06-e2e-test-cases.md) | The acceptance suite as code. Given/When/Then with exact assertions and pytest node IDs. |
 | 7 | [`07-build-plan.md`](07-build-plan.md) | Milestone order and the gate that closes each one. |
+| — | [`08-e2e-test-catalogue.md`](08-e2e-test-catalogue.md) | The same acceptance suite as 61 numbered, human-executable cases. Read this to run a test round or report status; read 06 to write the code. |
 
 Start at `07-build-plan.md` Milestone 0 once you have read 1–5.
 
@@ -45,5 +46,7 @@ Out of scope for the MVP: autonomous accept/decline/cancel/reschedule/send, sile
 | [`diagrams/05-integration-topology.png`](diagrams/05-integration-topology.png) | Local prototype today, Foundry target state |
 
 `Executive-Time-Management-Copilot-Architecture-MVP.docx` is the human review copy. The markdown in this folder is authoritative for the build.
+
+`08-test-cases.csv` is generated from `08-e2e-test-catalogue.md` by `tools/gen_test_csv.py`, for import into Azure DevOps, TestRail, or Jira. Edit the markdown, then re-run the generator.
 
 `brainstorm/executive-timemgmt-copilot.md` is the originating brief — background, superseded by these specs where they differ.
