@@ -76,6 +76,7 @@ class ScoutCalendarSnapshot(DomainModel):
     teams: list[ChatMessage] = Field(default_factory=list)
     files: list[FileReference] = Field(default_factory=list)
     limitations: list[DataLimitation] = Field(default_factory=list)
+    preference_evidence: list[GraphPreferenceEvidence] = Field(default_factory=list)
 
 
 MemoryLayerName = Literal["Current Session", "Evidence History", "Governed Memory"]

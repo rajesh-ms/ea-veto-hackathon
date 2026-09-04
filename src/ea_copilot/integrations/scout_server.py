@@ -78,10 +78,13 @@ class ScoutToolService:
         if not isinstance(adapter, ScoutM365Adapter):
             raise RuntimeError("Live Scout M365 adapter is not active")
         accepted = adapter.ingest(ScoutCalendarSnapshot.model_validate(snapshot))
+        for evidence in accepted.preference_evidence:
+            self.runtime.live_evidence.append(evidence)
         return {
             "request_id": accepted.request_id,
             "schedule_count": len(accepted.schedules),
             "limitation_count": len(accepted.limitations),
+            "preference_evidence_count": len(accepted.preference_evidence),
             "source": "live_via_scout",
         }
 
