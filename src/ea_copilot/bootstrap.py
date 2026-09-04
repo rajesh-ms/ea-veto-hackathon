@@ -9,6 +9,7 @@ from ea_copilot.adapters.clock_fixed import FixedClock
 from ea_copilot.adapters.clock_system import SystemClock
 from ea_copilot.adapters.llm_fake import FakeLlmAdapter
 from ea_copilot.adapters.m365_fake import FakeM365Adapter
+from ea_copilot.adapters.obsidian_vault import ObsidianVaultAdapter
 from ea_copilot.adapters.scout_m365 import ScoutM365Adapter
 from ea_copilot.agents.a01_intake import IntakeAgent
 from ea_copilot.agents.a02_context import ContextAgent
@@ -57,6 +58,7 @@ class ApplicationRuntime:
     live_mode: bool = False
     aliases: AliasDirectory | None = None
     self_identifier: str | None = None
+    vault: ObsidianVaultAdapter | None = None
 
 
 def build_runtime(
@@ -158,6 +160,7 @@ def build_live_runtime(
     database: Database | None = None,
     clock: ClockPort | None = None,
     llm: LlmPort | None = None,
+    vault_path: Path | None = None,
 ) -> ApplicationRuntime:
     """Build a Scout-backed runtime without copying Scout authentication state."""
 
@@ -176,4 +179,5 @@ def build_live_runtime(
         live_mode=True,
         aliases=aliases,
         self_identifier=self_identifier,
+        vault=ObsidianVaultAdapter(vault_path) if vault_path is not None else None,
     )

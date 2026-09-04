@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from pathlib import Path
 from typing import Literal
 
 from pydantic import Field
@@ -74,3 +75,31 @@ class ScoutCalendarSnapshot(DomainModel):
     teams: list[ChatMessage] = Field(default_factory=list)
     files: list[FileReference] = Field(default_factory=list)
     limitations: list[DataLimitation] = Field(default_factory=list)
+
+
+MemoryLayerName = Literal["Current Session", "Evidence History", "Governed Memory"]
+
+
+class MemoryNote(DomainModel):
+    """One privacy-filtered Markdown note destined for a governed layer."""
+
+    layer: MemoryLayerName
+    relative_path: str
+    title: str
+    markdown: str
+    append_only: bool
+
+
+class MemoryProjection(DomainModel):
+    """Complete one-way vault projection for a request."""
+
+    request_id: str
+    notes: list[MemoryNote]
+
+
+class VaultProjectionResult(DomainModel):
+    """Files and layer names written by the vault adapter."""
+
+    vault_path: Path
+    layers: list[MemoryLayerName]
+    written_files: list[str]
