@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="VETO proactive decision intelligence product strategy">
+<title>VETO | Governed Decision &amp; Commitment Intelligence</title>
+<style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 24px; }
+    body {
+      margin: 0;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    a { color: var(--cp-link); text-underline-offset: 3px; }
+    a:hover { color: var(--cp-accent); }
+    a:focus-visible { outline: 3px solid var(--cp-accent); outline-offset: 4px; }
+    ::selection { background: var(--cp-highlight); color: var(--cp-text); }
+    .skip { position: absolute; left: 16px; top: -80px; padding: 12px; background: var(--cp-surface); z-index: 2; }
+    .skip:focus { top: 16px; }
+    .shell { max-width: 1240px; margin: auto; padding: 0 40px; }
+    .masthead { display: flex; justify-content: space-between; gap: 16px; padding: 24px 0; border-bottom: 1px solid var(--cp-border); font-size: 13px; }
+    .brand { font-weight: 750; letter-spacing: 0.12em; }
+    .muted { color: var(--cp-text-muted); }
+    .eyebrow { color: var(--cp-accent); font-size: 12px; font-weight: 750; letter-spacing: 0.13em; text-transform: uppercase; }
+    .hero { padding: 56px 0 40px; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(260px, 1fr); gap: 56px; align-items: center; }
+    h1 { font-size: clamp(64px, 8vw, 100px); letter-spacing: -0.07em; line-height: 1; margin: 12px 0 20px; font-weight: 800; }
+    .hero-title { max-width: 650px; font-size: clamp(26px, 3vw, 36px); line-height: 1.23; font-weight: 650; letter-spacing: -0.035em; margin: 0 0 20px; }
+    .hero-description { max-width: 600px; color: var(--cp-text-muted); font-size: 18px; }
+    .summary { background: var(--cp-surface); border: 1px solid var(--cp-border); border-top: 4px solid var(--cp-accent); border-radius: 16px; padding: 28px; }
+    .summary h2 { font-size: 18px; margin: 0 0 20px; }
+    .summary dl { margin: 0; }
+    .summary dt { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cp-text-muted); margin-top: 16px; }
+    .summary dd { margin: 2px 0 0; font-weight: 600; font-size: 15px; line-height: 1.5; }
+    .status { display: inline-block; padding: 4px 10px; background: var(--cp-accent-soft); color: var(--cp-accent); border-radius: 0.625rem; font-size: 12px; font-weight: 700; }
+    .principles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--cp-border); border-bottom: 1px solid var(--cp-border); padding: 24px 0; }
+    .principles div { padding: 0 24px; border-left: 1px solid var(--cp-border); }
+    .principles div:first-child { border: 0; padding-left: 0; }
+    .principles strong { display: block; font-size: 16px; margin-bottom: 4px; }
+    .principles span { font-size: 14px; color: var(--cp-text-muted); }
+    .layout { display: grid; grid-template-columns: 196px minmax(0, 1fr); gap: 48px; padding: 48px 0; }
+    .toc { position: sticky; top: 24px; align-self: start; font-size: 13px; }
+    .toc-title { display: block; font-size: 11px; letter-spacing: 0.12em; color: var(--cp-text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 12px; }
+    .toc a { display: block; text-decoration: none; color: var(--cp-text-muted); padding: 8px 0; border-bottom: 1px solid var(--cp-border); }
+    .toc a:hover { color: var(--cp-accent); }
+    .toc span { font-family: Consolas, "Courier New", Courier, monospace; color: var(--cp-accent); margin-right: 8px; font-size: 11px; }
+    main { min-width: 0; }
+    section { margin-bottom: 52px; }
+    .section-title { display: flex; gap: 16px; align-items: baseline; margin-bottom: 20px; }
+    .section-number { color: var(--cp-accent); font: 13px Consolas, "Courier New", Courier, monospace; }
+    h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.25; margin: 0; }
+    h3 { font-size: 17px; margin: 24px 0 8px; line-height: 1.4; }
+    p { margin: 0 0 16px; }
+    ul, ol { padding-left: 24px; margin: 12px 0 20px; }
+    li { padding-left: 4px; margin-bottom: 8px; }
+    .lead { font-size: 20px; line-height: 1.5; letter-spacing: -0.01em; }
+    .callout { padding: 20px 24px; border-left: 3px solid var(--cp-accent); background: var(--cp-accent-soft); border-radius: 0 0.625rem 0.625rem 0; margin: 20px 0; }
+    .callout p:last-child { margin-bottom: 0; }
+    .small { font-size: 13px; }
+    .card { border: 1px solid var(--cp-border); background: var(--cp-surface); border-radius: 16px; padding: 24px; }
+    .card h3 { margin-top: 0; }
+    .card p:last-child { margin-bottom: 0; }
+    .grid-two, .grid-three { display: grid; gap: 16px; margin: 20px 0; }
+    .grid-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-three .card { padding: 20px; }
+    .grid-three p { font-size: 14px; }
+    .conversation { border: 1px solid var(--cp-border); border-radius: 16px; overflow: hidden; background: var(--cp-surface); }
+    .conversation-label { padding: 12px 24px; background: var(--cp-surface-soft); border-bottom: 1px solid var(--cp-border); font-size: 12px; color: var(--cp-text-muted); }
+    .turn { padding: 24px; }
+    .turn + .turn { border-top: 1px solid var(--cp-border); }
+    .speaker { font-size: 11px; color: var(--cp-accent); text-transform: uppercase; font-weight: 750; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .turn p:last-child { margin-bottom: 0; }
+    .record { font: 11px Consolas, "Courier New", Courier, monospace; color: var(--cp-accent); background: var(--cp-accent-soft); padding: 2px 5px; border-radius: 4px; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { text-align: left; background: var(--cp-surface-soft); font-size: 12px; letter-spacing: 0.01em; }
+    th, td { vertical-align: top; padding: 14px 16px; border-bottom: 1px solid var(--cp-border); }
+    tr:last-child td { border-bottom: 0; }
+    caption { text-align: left; font-weight: 650; padding: 14px 16px; border-bottom: 1px solid var(--cp-border); }
+    td:first-child { font-weight: 600; width: 24%; }
+    .architecture { border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); padding: 24px; margin: 24px 0; }
+    .architecture figcaption { font-weight: 700; margin-bottom: 20px; }
+    .node { border: 1px solid var(--cp-border); background: var(--cp-bg-elevated); border-radius: 0.625rem; padding: 16px; text-align: center; }
+    .node strong { display: block; }
+    .node span { display: block; font-size: 13px; color: var(--cp-text-muted); }
+    .node-accent { border-color: var(--cp-accent); background: var(--cp-accent-soft); }
+    .arrow { text-align: center; color: var(--cp-accent); padding: 4px; font-size: 20px; line-height: 1; }
+    .architecture .grid-three, .architecture .grid-two { margin: 0; gap: 12px; }
+    .offline { margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--cp-border-strong); font-size: 14px; }
+    code, pre { font-family: Consolas, "Courier New", Courier, monospace; }
+    code { font-size: 0.9em; }
+    pre { background: var(--cp-surface); color: var(--cp-text); padding: 20px; border: 1px solid var(--cp-border); border-radius: 0.625rem; font-size: 13px; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .partition { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 20px 0; }
+    .partition div { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 0.625rem; padding: 20px; }
+    .partition strong { display: block; color: var(--cp-accent); font-size: 32px; line-height: 1.2; }
+    .partition b { display: block; margin-top: 8px; }
+    .partition span { font-size: 13px; color: var(--cp-text-muted); }
+    .gate { font-weight: 700; color: var(--cp-accent); }
+    .reference-list { list-style: none; padding: 0; counter-reset: references; }
+    .reference-list li { counter-increment: references; border-top: 1px solid var(--cp-border); padding: 16px 0; margin: 0; }
+    .reference-list li::before { content: "[" counter(references) "] "; color: var(--cp-accent); font-family: Consolas, "Courier New", Courier, monospace; font-size: 12px; }
+    .reference-list a { font-weight: 600; font-size: 14px; }
+    .reference-list .url { display: block; overflow-wrap: anywhere; font-size: 11px; color: var(--cp-text-muted); margin-top: 4px; }
+    .reference-list p { font-size: 13px; margin: 4px 0 0; color: var(--cp-text-muted); }
+    footer { border-top: 1px solid var(--cp-border); padding: 24px 0 32px; display: flex; justify-content: space-between; gap: 16px; color: var(--cp-text-muted); font-size: 12px; }
+    @media (max-width: 980px) {
+      .shell { padding: 0 28px; }
+      .hero { gap: 28px; }
+      .layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+      .toc { position: static; display: flex; flex-wrap: wrap; gap: 8px 20px; }
+      .toc-title { width: 100%; margin: 0; }
+      .toc a { padding: 4px 0; border: 0; }
+    }
+    @media (max-width: 640px) {
+      .shell { padding: 0 20px; }
+      .masthead { font-size: 11px; }
+      .hero { grid-template-columns: 1fr; padding: 36px 0 28px; gap: 20px; }
+      .hero-description { font-size: 16px; }
+      .summary { padding: 20px; }
+      .principles { grid-template-columns: 1fr; gap: 16px; padding: 20px 0; }
+      .principles div, .principles div:first-child { padding: 0; border: 0; }
+      .layout { padding: 28px 0; }
+      .grid-two, .grid-three, .partition { grid-template-columns: 1fr; }
+      .section-title { gap: 12px; }
+      h2 { font-size: 25px; }
+      .architecture { padding: 16px; margin-left: 0; margin-right: 0; }
+      .partition div { padding: 16px; }
+      .partition strong { font-size: 26px; }
+      .turn, .card { padding: 20px; }
+      th, td { padding: 12px; }
+      table { min-width: 560px; }
+      footer { flex-direction: column; gap: 4px; }
+    }
+    @media print {
+      :root, html[data-theme="dark"] {
+        color-scheme: light;
+        --cp-bg: #ffffff;
+        --cp-bg-elevated: #fcfbf8;
+        --cp-surface: #ffffff;
+        --cp-surface-soft: #f5f5f5;
+        --cp-border: #dedede;
+        --cp-border-strong: #919191;
+        --cp-text: #242424;
+        --cp-text-muted: #5c5c5c;
+        --cp-text-soft: #6f6f6f;
+        --cp-accent: #b11f4b;
+        --cp-accent-soft: rgba(177, 31, 75, 0.08);
+        --cp-link: #0078d4;
+      }
+      @page { size: A4; margin: 16mm; }
+      body { font-size: 10pt; }
+      .shell { max-width: none; padding: 0; }
+      .skip, .toc { display: none; }
+      .masthead { padding: 0 0 12px; }
+      .hero { grid-template-columns: 1.3fr 1fr; padding: 24px 0; gap: 24px; }
+      h1 { font-size: 56pt; }
+      .hero-title { font-size: 20pt; }
+      .hero-description { font-size: 11pt; }
+      .summary { padding: 16px; }
+      .summary dd { font-size: 10pt; }
+      .layout { display: block; padding: 28px 0 0; }
+      section { margin-bottom: 28px; }
+      h2 { font-size: 18pt; }
+      h3 { font-size: 12pt; }
+      .lead { font-size: 12pt; }
+      .section-title, h3 { break-after: avoid; }
+      p { orphans: 3; widows: 3; }
+      .card, .callout, .conversation, .architecture, pre, .partition { break-inside: avoid; }
+      .table-wrap { overflow: visible; }
+      table { font-size: 9pt; min-width: 0; }
+      th, td { padding: 8px; }
+      tr { break-inside: avoid; }
+      thead { display: table-header-group; }
+      .reference-list li { break-inside: avoid; }
+      a { color: var(--cp-text); }
+    }
+  </style>
+</head>
+<body>
+<a class="skip" href="#brief">Skip to product strategy</a>
+<div class="shell">
+<header class="masthead">
+<div class="brand">VETO / PRODUCT STRATEGY</div>
+<div class="muted">Hackathon product strategy · 17 September 2026 · Final v3.0</div>
+</header>
+<div class="hero">
+<div>
+<div class="eyebrow">Copilot-based proactive decision intelligence</div>
+<h1>VETO</h1>
+<p class="hero-title">Decision &amp; Commitment Intelligence</p>
+<p class="hero-description">A governed AI copilot that helps Executive Assistants turn fragmented work signals into evidence-backed decisions, safer calendar options, and progressively better recommendations.</p>
+</div>
+<aside class="summary">
+<h2>At a glance</h2>
+<span class="status">Hackathon MVP — governed learning included</span>
+<dl>
+<dt>Core experience</dt>
+<dd>Morning Decision Brief + commitment check + governed RSI</dd>
+<dt>Primary persona</dt>
+<dd>Executive Assistant / Chief of Staff</dd>
+<dt>Minimum sources</dt>
+<dd>Outlook, Teams, Calendar, Dataverse</dd>
+<dt>Human authority</dt>
+<dd>EA-approved, unsent calendar drafts only</dd>
+</dl>
+</aside>
+</div>
+<div class="principles">
+<div>
+<strong>Proactive by default</strong>
+<span>Value arrives before the user prompts.</span>
+</div>
+<div>
+<strong>Evidence before recommendation</strong>
+<span>Facts, sources, assumptions, and unknowns stay visible.</span>
+</div>
+<div>
+<strong>Human authority stays explicit</strong>
+<span>The EA approves every exact draft and every learned behavior.</span>
+</div>
+<div>
+<strong>Improvement is governed</strong>
+<span>Feedback proposes change; evaluation and approval activate it.</span>
+</div>
+</div>
+<div class="layout">
+<nav class="toc">
+<span class="toc-title">In this brief</span>
+<a href="#s01">
+<span>01</span>Executive summary — what this use case is</a>
+<a href="#s02">
+<span>02</span>Why this problem is worth solving — market evidence</a>
+<a href="#s03">
+<span>03</span>Current state, problem statement, and pain points</a>
+<a href="#s04">
+<span>04</span>Personas and MVP focus</a>
+<a href="#s05">
+<span>05</span>Future-state vision and business outcomes</a>
+<a href="#s06">
+<span>06</span>Future-state experience — autonomous morning Decision Brief</a>
+<a href="#s07">
+<span>07</span>How VETO determines priority and recommendations</a>
+<a href="#s08">
+<span>08</span>Current-state vs future-state journeys</a>
+<a href="#s09">
+<span>09</span>Release 1 MVP scope and capabilities</a>
+<a href="#s10">
+<span>10</span>Minimum data and source strategy</a>
+<a href="#s11">
+<span>11</span>High-level functional requirements</a>
+<a href="#s12">
+<span>12</span>Conceptual architecture</a>
+<a href="#s13">
+<span>13</span>Governed recursive self-improvement</a>
+<a href="#s14">
+<span>14</span>Success metrics and evaluation</a>
+<a href="#s15">
+<span>15</span>Now / Next / Later roadmap</a>
+<a href="#s16">
+<span>16</span>Suggested product demonstration</a>
+<a href="#s17">
+<span>17</span>Research and platform references</a>
+</nav>
+<main id="brief">
+<section id="s01">
+<div class="section-title">
+<span class="section-number">01</span>
+<h2>Executive summary — what this use case is</h2>
+</div>
+<p class="lead">VETO is a proactive, governed decision-intelligence copilot for Executive Assistants and Chiefs of Staff. It converts fragmented Microsoft 365 signals into a ranked, evidence-backed decision brief, tests proposed commitments, recommends feasible calendar options, and learns safely from EA corrections.</p>
+<p>VETO has two complementary operating modes built on the same intelligence layer. First, it works proactively: every morning, or on another approved cadence, it reviews a bounded set of recent communications and calendar context and sends a concise Decision Brief. Second, it works on demand: before a leader commits to a date, request, priority, or action, the EA can ask VETO to check the commitment against source evidence, known commitments, and hard calendar constraints.</p>
+<p>The product does not replace the EA or executive. AI performs language-heavy work such as extraction, evidence linking, contradiction detection, and explanation. Deterministic services enforce permissions, priority rules, scheduling feasibility, approval requirements, and allowed actions. The EA remains responsible for judgment and approval.</p>
+<p>Release 1 has one primary operating persona: the Executive Assistant / Chief of Staff. The Executive / Senior Leader is the beneficiary and decision owner, receiving a concise view of the same governed decision case. Project and Program Managers remain a later expansion after the Microsoft 365 decision loop and its recursive improvement controls are proven.</p>
+<div class="callout">
+<p>
+<strong>Use case in one sentence</strong>
+</p>
+<p>VETO helps an EA protect executive time by turning scattered meeting and commitment signals into evidence-backed options, flagging conflicts, and creating an unsent calendar draft only after explicit EA approval.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Product question</th>
+<th>Release 1 answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What problem are we solving?</td>
+<td>Too much fragmented communication and too little decision-ready context.</td>
+</tr>
+<tr>
+<td>What is the differentiator?</td>
+<td>Not another digest: VETO checks commitments before they are made and improves from EA corrections through a governed, reversible loop.</td>
+</tr>
+<tr>
+<td>Is it autonomous?</td>
+<td>Yes for bounded retrieval, synthesis, prioritization, recommendation, and candidate improvement generation; no for consequential actions or behavior changes without approval.</td>
+</tr>
+<tr>
+<td>Who is the MVP for?</td>
+<td>Primary: Executive Assistant / Chief of Staff. Beneficiary and decision owner: Executive / Senior Leader.</td>
+</tr>
+<tr>
+<td>What data is minimum?</td>
+<td>Outlook + Teams + Calendar + Dataverse decision/commitment ledger. SharePoint is useful; ADO is Next.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s02">
+<div class="section-title">
+<span class="section-number">02</span>
+<h2>Why this problem is worth solving — market evidence</h2>
+</div>
+<p class="lead">The market evidence supports the underlying problem: modern knowledge work is overloaded, fragmented, search-heavy, and meeting-heavy — especially for leaders.</p>
+<div class="grid-three">
+<div class="card">
+<div class="eyebrow">Market signal</div>
+<h3 style="font-size:30px;color:var(--cp-accent);margin-bottom:6px">117</h3>
+<p>emails received per day by the average Microsoft 365 worker [1]</p>
+</div>
+<div class="card">
+<div class="eyebrow">Market signal</div>
+<h3 style="font-size:30px;color:var(--cp-accent);margin-bottom:6px">153</h3>
+<p>Teams messages received per weekday by the average worker [1]</p>
+</div>
+<div class="card">
+<div class="eyebrow">Market signal</div>
+<h3 style="font-size:30px;color:var(--cp-accent);margin-bottom:6px">2 min</h3>
+<p>average time between meetings, emails, or notifications interrupting Microsoft 365 users [1]</p>
+</div>
+<div class="card">
+<div class="eyebrow">Market signal</div>
+<h3 style="font-size:30px;color:var(--cp-accent);margin-bottom:6px">52%</h3>
+<p>of leaders say their work feels chaotic and fragmented [1]</p>
+</div>
+<div class="card">
+<div class="eyebrow">Market signal</div>
+<h3 style="font-size:30px;color:var(--cp-accent);margin-bottom:6px">25%</h3>
+<p>of time is wasted searching for answers in Atlassian’s 2025 survey [3]</p>
+</div>
+<div class="card">
+<div class="eyebrow">Market signal</div>
+<h3 style="font-size:30px;color:var(--cp-accent);margin-bottom:6px">67%</h3>
+<p>of director-level+ respondents reported overtime at least a few days a week due to meeting overload [4]</p>
+</div>
+</div>
+<p>Microsoft’s 2025 “Infinite Workday” telemetry describes a high-volume work environment: the average worker receives 117 emails and 153 Teams messages a day, and Microsoft 365 users are interrupted roughly every two minutes. More than half of leaders surveyed said their work feels chaotic and fragmented. [1]</p>
+<p>The coordination problem is not only message volume. Microsoft’s 2023 Work Trend Index found that 62% of respondents struggled with too much time spent searching for information, 68% said they lacked enough uninterrupted focus time, and the average Microsoft 365 user spent 57% of time communicating rather than creating. [2] Atlassian’s 2025 State of Teams found leaders and knowledge workers waste 25% of their time searching for answers. [3]</p>
+<p>Meeting load is also material for the target audience. Atlassian found 78% of surveyed workers said the volume of meetings makes it hard to get work done; the reported overtime rate due to meeting overload rose to 67% for director-level and above. [4]</p>
+<p>These data points justify the problem space, but they do not by themselves prove VETO’s exact feature set. The persona-specific needs, ranking logic, and willingness to receive proactive briefs should be validated through interviews and pilot telemetry.</p>
+<div class="callout">
+<p>
+<strong>Product-management interpretation</strong>
+</p>
+<p>The opportunity is not “summarize my inbox.” The higher-value problem is “tell me what requires a decision, assemble the evidence, expose trade-offs, and help me protect attention.”</p>
+</div>
+</section>
+<section id="s03">
+<div class="section-title">
+<span class="section-number">03</span>
+<h2>Current state, problem statement, and pain points</h2>
+</div>
+<p class="lead">Today, the user is the integration layer between email, chat, meetings, documents, calendars, and work systems.</p>
+<p>Important requests arrive through different channels and at different times. The recipient must decide whether something is informational, urgent, a commitment, a risk, a meeting request, or a decision that needs broader context. That interpretation is often repeated by the executive, EA, PM, and other stakeholders.</p>
+<p>Even when AI summarizes a thread, the user still has to answer the harder questions: What changed? Is this important? What is the deadline? What am I already committed to? Who is blocked? Do I need a meeting? Can I move something else? What evidence supports the recommendation?</p>
+<div class="callout">
+<p>
+<strong>Problem statement</strong>
+</p>
+<p>Leaders and the people who support them lack a permission-aware, evidence-backed way to continuously convert fragmented work signals into a prioritized decision queue and test new commitments before they create avoidable conflicts.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Pain point</th>
+<th>Executive / Leader</th>
+<th>EA / Chief of Staff</th>
+<th>Project / Program Manager</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signal overload</td>
+<td>Too many messages compete for attention.</td>
+<td>Must triage and prepare context across channels.</td>
+<td>Important changes can be buried in chat/email outside the plan.</td>
+</tr>
+<tr>
+<td>Decision context is fragmented</td>
+<td>Needs a concise view of implications before deciding.</td>
+<td>Searches threads, calendars, files, and stakeholders.</td>
+<td>Manually reconciles communication with delivery state.</td>
+</tr>
+<tr>
+<td>Priority is subjective</td>
+<td>Everything can look urgent in isolation.</td>
+<td>Must infer what truly warrants leader attention.</td>
+<td>Needs to distinguish noise from schedule/scope risk.</td>
+</tr>
+<tr>
+<td>Meeting pressure</td>
+<td>Calendar fills before the highest-value issues are known.</td>
+<td>Protects calendar and coordinates requests manually.</td>
+<td>Meetings are used to close information gaps and resolve dependencies.</td>
+</tr>
+<tr>
+<td>Commitment risk</td>
+<td>A quick “yes” can create downstream conflict.</td>
+<td>May not see delivery constraints behind a request.</td>
+<td>Must absorb commitments made outside delivery governance.</td>
+</tr>
+<tr>
+<td>Follow-through drift</td>
+<td>Decision rationale can disappear after the meeting/chat.</td>
+<td>Coordinates multiple updates and reminders.</td>
+<td>Updates RAID, plan, owners, and stakeholder communication separately.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s04">
+<div class="section-title">
+<span class="section-number">04</span>
+<h2>Personas and MVP focus</h2>
+</div>
+<p class="lead">Give the MVP one primary operator: the Executive Assistant / Chief of Staff. Give the Executive a concise approval and decision view of the same case.</p>
+<p>The EA has the frequent, observable job to be done: qualify ambiguous requests, assemble context, protect executive time, identify conflicts, prepare alternatives, secure approval, and preserve rationale. Focusing the operating experience on that workflow gives the hackathon a clear user, measurable value, and a credible approval boundary.</p>
+<p>The Executive remains the beneficiary and decision owner rather than a second independent product persona. Project / Program Manager remains an expansion persona; ADO/Planner/Jira adapters can later extend the same decision engine into delivery feasibility.</p>
+<div class="callout">
+<p>
+<strong>Persona decision</strong>
+</p>
+<p>One intelligence engine serves two views: a full EA workbench for evidence, qualification, scheduling, approval, and learning; and a concise executive view for decisions and trade-offs. ADO and the Project Manager persona remain outside the MVP.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Persona</th>
+<th>Jobs to be done</th>
+<th>Release 1 experience</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Executive Assistant / Chief of Staff — primary</td>
+<td>Qualify requests; prepare the leader; protect calendar; coordinate approved follow-through; retain rationale; teach the system safely.</td>
+<td>Full Decision Brief; evidence and missing-context view; commitment check; meeting options; exact draft approval; governed improvement candidates.</td>
+</tr>
+<tr>
+<td>Executive / Senior Leader — beneficiary</td>
+<td>Know what requires attention; make decisions with context; protect time; avoid contradictory commitments.</td>
+<td>Concise view of the same decision case: evidence, trade-offs, recommendation, and decision status.</td>
+</tr>
+<tr>
+<td>Project / Program Manager — Next</td>
+<td>Assess scope/schedule/resource/dependency impact; escalate trade-offs; maintain delivery records.</td>
+<td>Delivery Decision Brief using ADO/Planner/Jira and project artifacts.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s05">
+<div class="section-title">
+<span class="section-number">05</span>
+<h2>Future-state vision and business outcomes</h2>
+</div>
+<p class="lead">Move from reactive inbox management to an always-prepared, human-controlled decision rhythm.</p>
+<p>The future state is not a user repeatedly prompting a chatbot. VETO runs autonomously within defined boundaries, prepares the user before the day begins, and remains available conversationally when the user wants to inspect, challenge, or act on a recommendation.</p>
+<p>The product should feel like a decision cockpit, not a chat transcript: a small number of ranked items, each with what changed, why it matters, evidence, deadline/decision owner, recommended next step, and any calendar or commitment implications.</p>
+<div class="callout">
+<p>
+<strong>Vision</strong>
+</p>
+<p>A trusted decision-intelligence layer that continuously helps people decide what deserves attention, what evidence applies, what could break, and what action is safe to take next.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Business goal</th>
+<th>Outcome</th>
+<th>Illustrative pilot measure — target, not claim</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reduce decision-preparation effort</td>
+<td>Less manual searching, triage, and context assembly.</td>
+<td>30–50% reduction in time to create a decision-ready morning brief.</td>
+</tr>
+<tr>
+<td>Improve attention allocation</td>
+<td>High-impact decisions surface before routine communication.</td>
+<td>≥80% of “High” items judged relevant by pilot users.</td>
+</tr>
+<tr>
+<td>Protect executive focus</td>
+<td>Meetings and follow-ups align to decision importance.</td>
+<td>Reduction in low-value meeting conflicts / manual rescheduling touches.</td>
+</tr>
+<tr>
+<td>Reduce commitment surprises</td>
+<td>Potential conflicts surface before external/internal promise.</td>
+<td>Earlier conflict detection; fewer commitment reversals in pilot scenarios.</td>
+</tr>
+<tr>
+<td>Increase trust in AI</td>
+<td>Recommendations are explainable and human-controlled.</td>
+<td>≥90% material claims source-linked; zero unauthorized consequential actions.</td>
+</tr>
+<tr>
+<td>Improve execution traceability</td>
+<td>Approved decisions create clear next steps.</td>
+<td>Decision-to-action completion rate; fewer overdue/ambiguous follow-ups.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s06">
+<div class="section-title">
+<span class="section-number">06</span>
+<h2>Future-state experience — autonomous morning Decision Brief</h2>
+</div>
+<p class="lead">The default experience should be proactive. Conversation becomes the drill-down and approval layer, not the only way to get value.</p>
+<div class="callout">
+<p>
+<strong>Autonomy boundary</strong>
+</p>
+<p>VETO may autonomously retrieve, classify, summarize, rank, explain, and propose. It never sends an invitation or response, accepts or declines a meeting, cancels or moves an event, or changes its own governing policy. Only after a matching EA approval is recorded may it create the approved unsent calendar draft.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Executive morning brief — example</th>
+<th>What the user sees</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HIGH — Contoso renewal decision by 2 PM</td>
+<td>Customer asks for Friday commitment; two prior messages imply scope expansion; recommend reduced scope; show a feasible 30-minute decision slot and identify the conflicting recurring sync for human consideration only.</td>
+</tr>
+<tr>
+<td>HIGH — Escalation from Finance</td>
+<td>Budget approval blocks customer response; show approver, last update, and suggested follow-up.</td>
+</tr>
+<tr>
+<td>MEDIUM — Hiring plan review</td>
+<td>Input due in three days; no immediate blocker; recommend delegate to Chief of Staff for first pass.</td>
+</tr>
+<tr>
+<td>LOW — FYI industry briefing</td>
+<td>No decision or deadline detected; place in read-later section.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="architecture">
+<figcaption>Future-state flow</figcaption>
+<div class="node node-accent">
+<strong>Scheduled autonomous trigger</strong>
+<span>At an approved time, a recurrence trigger starts the agent without a user prompt.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>Bounded retrieval window</strong>
+<span>Review recent email, Teams messages, calendar changes, meeting requests, and the explicit decision/commitment ledger.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>Signal extraction</strong>
+<span>Identify requests, commitments, decisions, deadlines, escalations, meeting asks, unresolved actions, and material changes.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>Context &amp; evidence linking</strong>
+<span>Group related signals by customer/project/topic and attach source IDs, timestamps, owners, and freshness.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>Prioritization</strong>
+<span>Assign High / Medium / Low attention using transparent urgency, impact, blocking, strategic, and decision-owner rules.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>Recommendation</strong>
+<span>Suggest what to decide, delegate, reply, defer, or schedule; identify missing information and confidence limits.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>Calendar intelligence</strong>
+<span>Check authorized calendars, propose feasible meeting times, and explain conflicts. Never move, cancel, accept, or decline an event.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>Proactive delivery</strong>
+<span>Send a concise Teams brief / Adaptive Card with drill-down, evidence, and action options.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node node-accent">
+<strong>Human decision</strong>
+<span>The authorized EA approves, edits, rejects, requests information, or regenerates. Approval unlocks only the matching unsent calendar draft.</span>
+</div>
+</figure>
+</section>
+<section id="s07">
+<div class="section-title">
+<span class="section-number">07</span>
+<h2>How VETO determines priority and recommendations</h2>
+</div>
+<p class="lead">Priority must be explainable. Use a hybrid model: deterministic attention rules plus LLM-supported interpretation — not a black-box “AI importance score.”</p>
+<p>The LLM is useful for extracting intent and connecting related statements across natural-language sources. Hard priority escalators and action constraints should remain explicit. This makes the output auditable and easier to tune with real user feedback.</p>
+<div class="callout">
+<p>
+<strong>Priority labels</strong>
+</p>
+<p>High = action/decision is time-sensitive, material, blocking, or conflict-bearing. Medium = important but not immediately blocking. Low = informational or deferrable. The brief should also include “Needs clarification” when priority or feasibility cannot be supported by evidence.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>What VETO evaluates</th>
+<th>Illustrative Release 1 rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time criticality</td>
+<td>Deadline, meeting time, promised response, expiring approval.</td>
+<td>Due today / &lt;24h can force High.</td>
+</tr>
+<tr>
+<td>Business / customer impact</td>
+<td>Revenue/customer escalation, leadership exposure, strategic initiative.</td>
+<td>External escalation or material customer commitment raises priority.</td>
+</tr>
+<tr>
+<td>Blocking / dependency</td>
+<td>Whether other people or work cannot proceed.</td>
+<td>Blocking multiple owners or a committed milestone raises priority.</td>
+</tr>
+<tr>
+<td>Decision ownership</td>
+<td>Whether this user must decide versus can delegate.</td>
+<td>Executive approval required =&gt; High/Medium depending on due date.</td>
+</tr>
+<tr>
+<td>Commitment risk</td>
+<td>Potential conflict with an existing promise, budget, policy, or calendar constraint.</td>
+<td>Detected hard conflict =&gt; High until resolved.</td>
+</tr>
+<tr>
+<td>Information completeness</td>
+<td>Whether the evidence is sufficient to recommend.</td>
+<td>Missing critical fact =&gt; “Needs clarification,” not a confident recommendation.</td>
+</tr>
+<tr>
+<td>Meeting need</td>
+<td>Whether a synchronous decision is actually needed.</td>
+<td>Only recommend a meeting when async resolution is insufficient and a decision deadline exists.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s08">
+<div class="section-title">
+<span class="section-number">08</span>
+<h2>Current-state vs future-state journeys</h2>
+</div>
+<p class="lead">The same product behaves differently for the Executive and the EA because their jobs-to-be-done are different.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Journey step</th>
+<th>Executive today</th>
+<th>Executive with VETO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start of day</td>
+<td>Skims inbox/chats/calendar to decide what matters.</td>
+<td>Receives a ranked Decision Brief before the day begins.</td>
+</tr>
+<tr>
+<td>Understand an issue</td>
+<td>Opens multiple threads and asks for background.</td>
+<td>Opens one decision card with source-backed context and what changed.</td>
+</tr>
+<tr>
+<td>Assess trade-off</td>
+<td>Relies on memory, staff, and separate systems.</td>
+<td>Sees commitments, missing facts, conflicts, and supported options.</td>
+</tr>
+<tr>
+<td>Protect calendar</td>
+<td>Reacts to requests and meeting load.</td>
+<td>Sees suggested calendar trade-offs tied to decision priority.</td>
+</tr>
+<tr>
+<td>Decide</td>
+<td>Makes judgment, then separately communicates it.</td>
+<td>Approves/edits/delegates from the decision card.</td>
+</tr>
+<tr>
+<td>Follow-through</td>
+<td>Actions are spread across email, calendar, tasks, and people.</td>
+<td>Exact actions are previewed; approved follow-through is traceable.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>EA / Chief of Staff journey</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Journey step</th>
+<th>EA / Chief of Staff today</th>
+<th>EA / Chief of Staff with VETO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triage</td>
+<td>Reads and tags large volumes manually.</td>
+<td>Receives leader-specific high/medium/low queue with rationale.</td>
+</tr>
+<tr>
+<td>Prepare context</td>
+<td>Searches email, chat, files, calendar, and asks owners.</td>
+<td>VETO assembles relevant evidence and identifies missing context.</td>
+</tr>
+<tr>
+<td>Calendar protection</td>
+<td>Negotiates meeting priorities one request at a time.</td>
+<td>Gets recommendations for which requests deserve time and candidate slots.</td>
+</tr>
+<tr>
+<td>Decision prep</td>
+<td>Builds summaries and briefing notes manually.</td>
+<td>Edits a generated decision-ready brief with linked evidence.</td>
+</tr>
+<tr>
+<td>Coordinate</td>
+<td>Drafts follow-ups and updates multiple records.</td>
+<td>Reviews the exact proposed draft; VETO creates it unsent after approval, and the EA sends separately from Outlook.</td>
+</tr>
+<tr>
+<td>Learn preferences</td>
+<td>Relies on experience and memory.</td>
+<td>Later release can store explicit, inspectable preferences and exceptions.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s09">
+<div class="section-title">
+<span class="section-number">09</span>
+<h2>Release 1 MVP scope and capabilities</h2>
+</div>
+<p class="lead">The MVP should prove one complete, governed decision-and-improvement loop for the EA / Chief of Staff, with a concise executive view—not integrate every enterprise system.</p>
+<div class="callout">
+<p>
+<strong>MVP boundary</strong>
+</p>
+<p>Release 1 does not need Azure DevOps to prove the product. Adding ADO too early expands scope, permissions, test data, and decision rules. Keep ADO as the first “Next” capability unless the team explicitly decides the PM persona is part of Release 1.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>What it enables</th>
+<th>Release 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scheduled Decision Brief</td>
+<td>Agent runs every morning without a user prompt.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Outlook signal retrieval</td>
+<td>Find recent asks, commitments, approvals, escalations, and deadlines.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Teams signal retrieval</td>
+<td>Find recent material chats/messages relevant to the signed-in user.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Calendar intelligence</td>
+<td>Review today/upcoming meetings, requests, conflicts, and candidate time windows.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Signal-to-decision extraction</td>
+<td>Convert raw communication into requests, commitments, decisions, actions, owners, and dates.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>High / Medium / Low prioritization</td>
+<td>Create a small attention queue with explainable rationale.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Evidence-linked decision card</td>
+<td>Show source links/timestamps, facts, assumptions, and unknowns.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Recommended action</td>
+<td>Suggest decide/delegate/reply/defer/schedule/clarify.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Calendar recommendation</td>
+<td>Propose feasible candidate times and explain conflicts; never move, cancel, accept, or decline an event.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>“Check this commitment” guardrail</td>
+<td>On demand, test a proposed promise against known evidence/commitments.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Exact-action preview and approval</td>
+<td>Show the exact calendar draft, record the EA approval, then create it unsent. No other calendar write is permitted.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Dataverse decision/commitment ledger</td>
+<td>Persist decision cases, explicit commitments, approvals, outcomes, feedback, candidate improvements, and activated versions.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>SharePoint / OneDrive grounding</td>
+<td>Use strategy, policy, meeting artifacts where useful.</td>
+<td>Should / Stretch</td>
+</tr>
+<tr>
+<td>Governed recursive self-improvement</td>
+<td>Turn repeated EA corrections into evaluated candidate preferences; activate only after EA approval and support rollback.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>Azure DevOps / project delivery adapter</td>
+<td>Add work items, dependencies, sprint/milestone facts for PM persona.</td>
+<td>Next</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s10">
+<div class="section-title">
+<span class="section-number">10</span>
+<h2>Minimum data and source strategy</h2>
+</div>
+<p class="lead">For Release 1, the source strategy should be “minimum necessary context,” not “ingest everything.”</p>
+<p>Microsoft Graph Search can search Outlook messages in the signed-in user’s own mailbox and Teams messages in the signed-in user’s Teams message storage. [8][9] Calendar search/read APIs can provide the user’s primary calendar context. [10]</p>
+<p>For the EA scenario, delegated executive mailbox/search access must be validated carefully. Microsoft’s Outlook Search documentation notes that Microsoft Search message queries apply to the signed-in user’s own mailbox and do not search delegated mailboxes. [8] For the MVP, use the executive’s identity, the EA’s own permitted data, or seeded/approved records rather than assuming delegated mailbox search works the same way.</p>
+<p>Azure DevOps Work Items is available as a Copilot knowledge source / connector, making it a credible expansion path, but availability depends on the agent experience, environment, and licensing. [11][12]</p>
+<div class="callout">
+<p>
+<strong>Design rule</strong>
+</p>
+<p>Retrieve only what is relevant to the current user, time window, decision, customer/project, and approved source set. Store normalized facts and references — not unnecessary copies of raw private communication.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Why it matters</th>
+<th>Release 1 approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Outlook</td>
+<td>Customer/internal asks, approvals, deadlines, promises, escalations.</td>
+<td>Search or retrieve a recent window from the signed-in user’s own mailbox; preserve source metadata.</td>
+</tr>
+<tr>
+<td>Teams</td>
+<td>Real-time decisions, stakeholder context, follow-ups, unresolved asks.</td>
+<td>Search the signed-in user’s permitted Teams message corpus; bounded time/topic retrieval.</td>
+</tr>
+<tr>
+<td>Calendar</td>
+<td>Meetings, requests, conflicts, deadlines, available windows.</td>
+<td>Read primary calendar; use for scheduling context, not delivery capacity.</td>
+</tr>
+<tr>
+<td>Dataverse</td>
+<td>Stable structure for commitments, decision cases, rules, approvals, outcomes.</td>
+<td>Use as VETO system of record.</td>
+</tr>
+<tr>
+<td>SharePoint / OneDrive</td>
+<td>Strategy, policy, project/customer artifacts, meeting documents.</td>
+<td>Add a small approved library if it materially improves the demo.</td>
+</tr>
+<tr>
+<td>Azure DevOps</td>
+<td>Backlog, bugs, work items, delivery state, dependencies.</td>
+<td>Next release when Project/Program Manager persona is added.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s11">
+<div class="section-title">
+<span class="section-number">11</span>
+<h2>High-level functional requirements</h2>
+</div>
+<p class="lead">Requirements should describe decision behavior, not only connectors.</p>
+<div class="callout">
+<p>
+<strong>Nonfunctional essentials</strong>
+</p>
+<p>Least privilege, data minimization, source traceability, graceful connector failure, latency/cost observability, accessible Adaptive Cards, and zero unauthorized consequential writes.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-01</td>
+<td>Run a scheduled morning brief without requiring a user prompt.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-02</td>
+<td>Retrieve recent, permission-scoped Outlook, Teams, and Calendar signals for the configured user.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-03</td>
+<td>Extract candidate decisions, commitments, requests, deadlines, actions, meeting requests, owners, and entities.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-04</td>
+<td>Group related signals into a decision case and preserve source IDs, URLs, timestamps, and freshness.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-05</td>
+<td>Classify each case as High, Medium, Low, or Needs Clarification using explicit priority rules.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-06</td>
+<td>Separate confirmed facts, assumptions, contradictions, and missing information.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-07</td>
+<td>Generate recommended next actions and explain why each recommendation is supported.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-08</td>
+<td>Use authorized calendar context to recommend feasible candidate slots and explain conflicts without moving, accepting, declining, or cancelling any event.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-09</td>
+<td>Support on-demand “Check this commitment” analysis against explicit commitments and decision history.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-10</td>
+<td>Preview the exact unsent calendar draft, record a matching EA approval event, and only then create that draft. No invitation is sent.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-11</td>
+<td>Allow the user to correct priority, relevance, facts, and explicit preferences.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-12</td>
+<td>Record the decision, approval, action result, and outcome for audit/evaluation.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-13</td>
+<td>Detect repeated, consistent EA corrections and create an evidence-backed candidate improvement that remains inert until approved.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-14</td>
+<td>Evaluate each candidate against policy and replay scenarios; on approval create a new version, name its influence in later recommendations, and support rollback.</td>
+<td>Must</td>
+</tr>
+<tr>
+<td>FR-15</td>
+<td>Add project-system impact analysis (ADO/Planner/Jira) through configurable adapters.</td>
+<td>Next</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s12">
+<div class="section-title">
+<span class="section-number">12</span>
+<h2>Conceptual architecture</h2>
+</div>
+<p class="lead">Use Copilot Studio as the orchestration and experience layer, Azure-hosted services as the governed decision core, and a separate evaluation path for recursive improvement.</p>
+<p>Copilot Studio supports event triggers that can activate an agent without a user message, including recurrence-based triggers. [6] That makes the autonomous morning brief technically feasible. Proactive Teams messages can be sent through Power Automate / the Teams connector, subject to installation and channel limitations. [7]</p>
+<p>For production, authentication design is critical. Copilot Studio event triggers can use the maker’s credentials; that is acceptable for a constrained demo but creates a cross-user access risk for a multi-user product if used carelessly. [6] Production design should favor per-user delegated access or a carefully governed service pattern with least privilege.</p>
+<figure class="architecture">
+<figcaption>Future-state flow</figcaption>
+<div class="node node-accent">
+<strong>TRIGGERS &amp; ENTRY POINTS</strong>
+<span>Recurrence trigger for morning brief; optional bounded event triggers; Teams / Microsoft 365 Copilot conversational entry.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>COPILOT STUDIO ORCHESTRATOR</strong>
+<span>Conversation, Adaptive Cards, clarification, tool selection, and response composition. It does not own policy or calendar-write authority.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>PERMISSION-SCOPED SOURCE ADAPTERS</strong>
+<span>Outlook + Teams + Calendar via Microsoft Graph / approved connectors; optional SharePoint/OneDrive; ADO adapter later.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>AI INTELLIGENCE</strong>
+<span>Azure OpenAI / Foundry model behind a controlled port for extraction, evidence linking, contradiction detection, and explanation. Retrieved content remains untrusted data.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>DATAVERSE DECISION LEDGER</strong>
+<span>Decision cases, explicit commitments, evidence metadata, approvals, outcomes, feedback, candidate improvements, and version history.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>DECISION SERVICES</strong>
+<span>Azure Functions or the existing FastAPI service for deterministic priority rules, completeness gates, scheduling constraints, approval verification, and rollback.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>PROACTIVE DELIVERY</strong>
+<span>Teams proactive message / Adaptive Card containing ranked brief, evidence links, and drill-down actions.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node">
+<strong>HUMAN APPROVAL &amp; CONTROLLED ACTIONS</strong>
+<span>The EA reviews the exact payload. Only a matching recorded approval can unlock creation of an unsent calendar draft; no send, move, accept, decline, or cancel operation exists.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node node-accent">
+<strong>GOVERNANCE &amp; EVALUATION</strong>
+<span>Entra ID, DLP/Purview, Application Insights, fixed evaluation scenarios, prompt-injection tests, regression gates, and action-safety invariants.</span>
+</div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node node-accent">
+<strong>GOVERNED RSI LOOP</strong>
+<span>Feedback → candidate improvement → policy validation → offline replay → EA approval → versioned activation → monitoring → rollback when needed.</span>
+</div>
+</figure>
+</section>
+<section id="s13">
+<div class="section-title">
+<span class="section-number">13</span>
+<h2>Governed recursive self-improvement</h2>
+</div>
+<p class="lead">VETO improves through repeated, evidence-backed feedback cycles while its authority, safety invariants, and source code remain fixed.</p>
+<div class="callout">
+<p>
+<strong>Definition of RSI for VETO</strong>
+</p>
+<p>Recursive self-improvement means outcomes generate feedback; feedback produces candidate improvements; candidates are evaluated and approved; approved versions influence later recommendations; later outcomes begin the next cycle. It does not mean autonomous code changes, model-weight updates, permission expansion, or policy rewriting.</p>
+</div>
+<figure class="architecture">
+<figcaption>Governed improvement cycle</figcaption>
+<div class="node node-accent"><strong>1 · OUTCOME &amp; FEEDBACK</strong><span>Capture approve, edit, reject, alternate choice, priority correction, fact correction, and reason.</span></div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node"><strong>2 · PATTERN DETECTION</strong><span>Require repeated, consistent evidence — for example three aligned corrections within 30 days.</span></div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node"><strong>3 · CANDIDATE IMPROVEMENT</strong><span>Propose a scoped preference, retrieval adjustment, clarification pattern, ranking-weight change, or prompt version. The candidate is inert.</span></div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node"><strong>4 · POLICY &amp; SAFETY VALIDATION</strong><span>Reject conflicts with enterprise policy, hard scheduling constraints, permissions, the approval gate, or allowed actions.</span></div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node"><strong>5 · OFFLINE REPLAY</strong><span>Compare the candidate with the current version on fixed scenarios and historical cases; block safety or quality regressions.</span></div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node"><strong>6 · EA APPROVAL</strong><span>Show evidence, confidence, projected impact, exceptions, and evaluation results. Only approve or edit activates a change.</span></div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="node node-accent"><strong>7 · VERSION, MONITOR &amp; ROLLBACK</strong><span>Activate a new version, name its influence in every recommendation, monitor outcomes, and retain one-step rollback.</span></div>
+</figure>
+<div class="table-wrap">
+<table>
+<thead><tr><th>VETO may improve</th><th>VETO never changes autonomously</th></tr></thead>
+<tbody>
+<tr><td>Explicit executive preferences and exceptions</td><td>Permissions, identity scope, or data-retention boundaries</td></tr>
+<tr><td>Ranking weights within approved bounds</td><td>EA approval requirements or allowed calendar operations</td></tr>
+<tr><td>Retrieval strategies and clarification questions</td><td>Hard scheduling constraints or enterprise policy</td></tr>
+<tr><td>Prompt versions after replay evaluation</td><td>Source code, deployed tools, model weights, or evaluation gates</td></tr>
+<tr><td>Confidence calibration from observed outcomes</td><td>Append-only audit history or provenance records</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Assumptions and product risks</h3>
+<p>The largest risks are permissions, false priority, overreach, feedback poisoning, preference drift, and user trust—not model fluency alone.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Assumption / risk</th>
+<th>Mitigation / product decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Assumption</td>
+<td>Users are willing to receive a proactive brief from an agent.</td>
+<td>Validate with 5–8 target users; allow cadence, quiet hours, and “only when material” settings.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Too many “High” items creates alert fatigue.</td>
+<td>Cap the brief, use hard high-priority rules, show confidence, and learn from explicit corrections.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Agent mistakes an informal message for a commitment.</td>
+<td>Use candidate vs confirmed commitment states; show source; require confirmation for material use.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Stale/contradictory evidence creates bad advice.</td>
+<td>Freshness checks, authority hierarchy, contradiction flags, “Needs Clarification” state.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Users perceive surveillance.</td>
+<td>Bounded retrieval windows, transparent source list, opt-in scopes, no tenant-wide scanning by default.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Calendar suggestions become intrusive or inappropriate.</td>
+<td>Recommend only; show rationale; never move/decline silently.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Delegated mailbox / shared-calendar behavior differs from assumed access.</td>
+<td>Validate tenant permissions early; demo under the target identity or use seeded data.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Autonomous trigger runs under maker credentials.</td>
+<td>Limit demo identity; design production authentication separately; least privilege and environment separation.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>VETO becomes a generic digest.</td>
+<td>Always anchor output to decisions, commitments, trade-offs, and actions — not summary volume.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>MVP expands into ADO, CRM, ServiceNow, and every source.</td>
+<td>Keep source adapter contract; Release 1 = M365 core; add business systems by persona later.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>Malicious or accidental feedback poisons the improvement loop.</td>
+<td>Use authenticated actors, minimum evidence thresholds, anomaly checks, scoped candidates, and mandatory EA approval.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>A candidate overfits a few corrections or degrades other scenarios.</td>
+<td>Replay a fixed regression suite and representative historical cases; require improvement without governance regression.</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>An approved preference becomes stale as responsibilities change.</td>
+<td>Attach effective dates, monitor overrides, surface drift, and support immediate rollback to any prior version.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s14">
+<div class="section-title">
+<span class="section-number">14</span>
+<h2>Success metrics and evaluation</h2>
+</div>
+<p class="lead">Measure whether VETO helps users make better-supported decisions with less coordination effort — not whether the prose sounds smart.</p>
+<p>Microsoft’s 2026 Work Trend Index found 86% of surveyed AI users said they treat AI output as a starting point rather than a final answer and remain responsible for the thinking. [5] That supports a design in which VETO prepares and challenges decisions but preserves human judgment and accountability.</p>
+<p>For the hackathon evaluation, include at least: one true High-priority case, one routine item that must remain Low, one missing-information case, one stale/contradictory case, one prompt-injection attempt, one calendar conflict, one attempted action without approval, and one before/after recommendation changed only after an approved improvement.</p>
+<div class="callout">
+<p>
+<strong>Evidence standard</strong>
+</p>
+<p>A strong demo shows both success and restraint: VETO should confidently surface what is supported, and explicitly stop when the evidence is not sufficient.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>MVP measure</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brief relevance</td>
+<td>% of High items users mark relevant / action-worthy.</td>
+<td>Proves the agent allocates attention correctly.</td>
+</tr>
+<tr>
+<td>Decision-prep efficiency</td>
+<td>Time / manual touches required to prepare the same brief manually vs VETO.</td>
+<td>Tests real productivity value.</td>
+</tr>
+<tr>
+<td>Evidence grounding</td>
+<td>% of material claims with valid source; unsupported-claim rate.</td>
+<td>Core trust requirement.</td>
+</tr>
+<tr>
+<td>Priority precision</td>
+<td>False-high and missed-high cases on labeled scenarios.</td>
+<td>Prevents alert fatigue and dangerous omissions.</td>
+</tr>
+<tr>
+<td>Completeness behavior</td>
+<td>Correct use of “Needs Clarification” when critical information is missing.</td>
+<td>Prevents confident guessing.</td>
+</tr>
+<tr>
+<td>Calendar usefulness</td>
+<td>Accepted/edited/rejected meeting recommendations and reason.</td>
+<td>Tests whether calendar intelligence adds value or noise.</td>
+</tr>
+<tr>
+<td>Commitment-review quality</td>
+<td>Correct conflict detection and feasible alternative rate.</td>
+<td>Tests VETO differentiator beyond summarization.</td>
+</tr>
+<tr>
+<td>Execution safety</td>
+<td>Unauthorized writes, duplicate actions, stale-state actions.</td>
+<td>Critical safety gate: target zero.</td>
+</tr>
+<tr>
+<td>RSI governance</td>
+<td>Candidate influence before approval; policy or safety regressions; rollback success.</td>
+<td>Target zero pre-approval influence, zero governance regressions, and exact restoration after rollback.</td>
+</tr>
+<tr>
+<td>Improvement value</td>
+<td>Acceptance or ranking quality before versus after an approved version.</td>
+<td>Proves the recursive loop improves the persona’s outcome rather than merely changing behavior.</td>
+</tr>
+<tr>
+<td>Adoption / trust</td>
+<td>Brief open rate, repeat use, corrections, user trust score.</td>
+<td>Indicates sustainable product fit.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s15">
+<div class="section-title">
+<span class="section-number">15</span>
+<h2>Now / Next / Later roadmap</h2>
+</div>
+<p class="lead">Build the reusable intelligence loop first; expand personas and systems after the behavior is trusted.</p>
+<div class="callout">
+<p>
+<strong>Scale strategy</strong>
+</p>
+<p>Productize source adapters, authority hierarchy, priority rules, commitment types, approval roles, and role views rather than hard-coding one executive workflow. Keep the calendar action surface permanently restricted to approved, unsent draft creation.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Horizon</th>
+<th>Personas</th>
+<th>Capabilities / sources</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOW — Release 1</td>
+<td>EA / Chief of Staff — primary; Executive / Senior Leader — beneficiary</td>
+<td>Morning Decision Brief; Outlook/Teams/Calendar; evidence-linked cases; explainable priority; commitment check; feasible slots; EA-approved unsent draft; governed RSI with versioning and rollback.</td>
+</tr>
+<tr>
+<td>NEXT</td>
+<td>Project / Program Manager; Product Manager</td>
+<td>ADO/Planner/Jira adapter; delivery-impact rules; milestones/dependencies/RAID; cross-role handoff; evaluated prompt and retrieval improvements; limited event-driven alerts.</td>
+</tr>
+<tr>
+<td>LATER</td>
+<td>Account / Customer Success; Operations; broader leadership</td>
+<td>CRM/ServiceNow/other read adapters; portfolio decision intelligence; configurable rule packs; federated evaluation; customer-specific role views. The EA approval gate and restricted action surface remain unchanged.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s16">
+<div class="section-title">
+<span class="section-number">16</span>
+<h2>Suggested product demonstration</h2>
+</div>
+<p class="lead">Demonstrate the future-state user experience: proactive first, conversational second.</p>
+<div class="callout">
+<p>
+<strong>Pitch</strong>
+</p>
+<p>VETO helps an EA protect executive time by connecting every recommendation to evidence, blocking unsafe actions, and learning from corrections only through evaluated, approved, reversible changes.</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>What the audience sees</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0:00–0:20</td>
+<td>At 7:00 AM, VETO proactively sends an Executive Decision Brief with 2 High, 1 Medium, and 2 Low items. No user prompt.</td>
+</tr>
+<tr>
+<td>0:20–0:45</td>
+<td>Open the top item: a customer asks for a Friday commitment. VETO shows the relevant email/chat evidence, deadline, and what changed.</td>
+</tr>
+<tr>
+<td>0:45–1:05</td>
+<td>VETO flags a conflicting prior commitment and says one estimate is missing. It does not pretend the plan is feasible.</td>
+</tr>
+<tr>
+<td>1:05–1:25</td>
+<td>After the missing fact is supplied from the seeded ledger, VETO proposes Friday reduced scope or Tuesday full scope.</td>
+</tr>
+<tr>
+<td>1:25–1:45</td>
+<td>Calendar intelligence produces two feasible slots, explains the conflict with an existing recurring meeting, and does not move it.</td>
+</tr>
+<tr>
+<td>1:45–2:05</td>
+<td>The EA approves one exact option. VETO records the approval first, creates only an unsent calendar draft, and returns its link.</td>
+</tr>
+<tr>
+<td>2:05–2:25</td>
+<td>Three prior EA corrections produce a candidate preference. VETO shows the evidence and proves the pending candidate has not changed current rankings.</td>
+</tr>
+<tr>
+<td>2:25–2:45</td>
+<td>The EA reviews replay results and approves the candidate. Profile v2 activates, and the same request now ranks differently with the influencing rule named.</td>
+</tr>
+<tr>
+<td>2:45–3:00</td>
+<td>Close on the audit and rollback view: evidence, recommendation, approval, draft result, improvement lineage, and zero unauthorized writes.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="s17">
+<div class="section-title">
+<span class="section-number">17</span>
+<h2>Research and platform references</h2>
+</div>
+<p class="lead">Research metrics are directional evidence for the problem; tenant-specific platform behavior must be validated before production design.</p>
+<ol class="reference-list">
+<li>
+<a href="https://www.microsoft.com/en-us/worklab/work-trend-index/breaking-down-infinite-workday">Microsoft Work Trend Index, “Breaking down the infinite workday,” 17 Jun 2025</a>
+<span class="url">https://www.microsoft.com/en-us/worklab/work-trend-index/breaking-down-infinite-workday</span>
+</li>
+<li>
+<a href="https://www.microsoft.com/en-us/worklab/work-trend-index/will-ai-fix-work">Microsoft Work Trend Index, “Will AI Fix Work?”, 9 May 2023</a>
+<span class="url">https://www.microsoft.com/en-us/worklab/work-trend-index/will-ai-fix-work</span>
+</li>
+<li>
+<a href="https://www.atlassian.com/blog/state-of-teams-2025">Atlassian, State of Teams 2025</a>
+<span class="url">https://www.atlassian.com/blog/state-of-teams-2025</span>
+</li>
+<li>
+<a href="https://www.atlassian.com/blog/workplace-woes-meetings">Atlassian, Workplace Woes: Meetings</a>
+<span class="url">https://www.atlassian.com/blog/workplace-woes-meetings</span>
+</li>
+<li>
+<a href="https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization">Microsoft Work Trend Index 2026, “Agents, human agency, and the opportunity for every organization,” 5 May 2026</a>
+<span class="url">https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization</span>
+</li>
+<li>
+<a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-triggers-about">Microsoft Learn, Copilot Studio event triggers overview</a>
+<span class="url">https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-triggers-about</span>
+</li>
+<li>
+<a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-proactive-message">Microsoft Learn, Send proactive Microsoft Teams messages from Copilot Studio</a>
+<span class="url">https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-proactive-message</span>
+</li>
+<li>
+<a href="https://learn.microsoft.com/en-us/graph/search-concept-messages">Microsoft Learn, Microsoft Graph Search — Outlook messages</a>
+<span class="url">https://learn.microsoft.com/en-us/graph/search-concept-messages</span>
+</li>
+<li>
+<a href="https://learn.microsoft.com/en-us/graph/search-concept-chat-messages">Microsoft Learn, Microsoft Graph Search — Teams messages</a>
+<span class="url">https://learn.microsoft.com/en-us/graph/search-concept-chat-messages</span>
+</li>
+<li>
+<a href="https://learn.microsoft.com/en-us/graph/search-concept-events">Microsoft Learn, Microsoft Graph Search — Outlook calendar events</a>
+<span class="url">https://learn.microsoft.com/en-us/graph/search-concept-events</span>
+</li>
+<li>
+<a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/knowledge-sources-overview">Microsoft Learn, Copilot Studio knowledge sources overview</a>
+<span class="url">https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/knowledge-sources-overview</span>
+</li>
+<li>
+<a href="https://learn.microsoft.com/en-us/MicrosoftSearch/azure-devops-work-items-overview">Microsoft Learn, Azure DevOps Work Items Copilot connector overview</a>
+<span class="url">https://learn.microsoft.com/en-us/MicrosoftSearch/azure-devops-work-items-overview</span>
+</li>
+<li>
+<a href="https://learn.microsoft.com/en-us/graph/teams-changenotifications-chatmessage">Microsoft Learn, Teams chat-message change notifications</a>
+<span class="url">https://learn.microsoft.com/en-us/graph/teams-changenotifications-chatmessage</span>
+</li>
+</ol>
+</section>
+</main>
+</div>
+<footer>
+<div>
+<strong>VETO</strong> · Governed Decision &amp; Commitment Intelligence · Final v3.0</div>
+<div>Market evidence cited; pilot targets are hypotheses. Validate tenant capabilities and permissions before production.</div>
+</footer>
+</div>
+</body>
+</html>
